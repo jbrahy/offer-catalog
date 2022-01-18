@@ -38,23 +38,11 @@
             <p class="offer-description">Keeping you in the know about products, medications, and medical devices to help you make informed decisions to potentially get compensation for your injuries.</p>
             <p class="offer-description">We currently offer lead generation services for the following verticals:</p>
           </div>
-          <div class="row">
-            <div class="col">
-              <ul>
-                <li><a href="https://consumer-coalition.com/cases/3m-military-earplugs/index.html" target="_blank">3M Military Earplugs</a></li>
-                <li><a href="https://consumer-coalition.com/cases/clergy-abuse/index.html" target="_blank">Clergy Abuse</a></li>
-                <li><a href="https://consumer-coalition.com/cases/hernia-mesh-injuries/index.html" target="_blank">Hernia Mesh Injuries</a></li>
-                <li><a href="https://consumer-coalition.com/cases/paraquat/index.html" target="_blank">ParaQuat</a></li>
-              </ul>
-            </div>
-            <div class="col">
-              <ul>
-                <li><a href="https://consumer-coalition.com/cases/roundup/index.html" target="_blank">RoundUp</a></li>
-                <li><a href="https://consumer-coalition.com/cases/talcum/index.html" target="_blank">Talcum</a></li>
-                <li><a href="https://consumer-coalition.com/cases/zantac/index.html" target="_blank">Zantac</a></li>
-              </ul>
-            </div>
-          </div>
+
+
+         <?= $this->renderSection("body") ?>
+
+
         </div>
       </div>
     </div>
