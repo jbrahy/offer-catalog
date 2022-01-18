@@ -11,53 +11,60 @@
                 </a>
               </div>
               <div class="text-center">
-                <a href="https://consumer-coalition.com" target="_blank" class="offer-url">Consumer-Coalition.com</a>
+                <a href="<?php echo $brandData->homepage;?>" target="_blank" class="offer-url"><?php echo $brandData->brand;?></a>
               </div>
               <div class="text-left">
-                <p class="offer-description">Keeping you in the know about products, medications, and medical devices to help you make informed decisions to potentially get compensation for your injuries.</p>
-                <p class="offer-description">We currently offer lead generation services for the following verticals:</p>
+                <p class="offer-description"><?php echo $brandData->synopsis;?></p>
               </div>
     
         <?php
 
-            if ((isset($result_brands)) && (count($result_brands)>0))
+            if ((isset($result_offers)) && (count($result_offers)>0))
             {
         ?>
         <div class="row">
             <div class="col">
-              <ul>
-                <?php
-                $row = 0;
-                foreach($result_brands as $r)
-                {
-                    $row++;
-                    if ($row %2 != 0)
-                    {
-                ?>
-                <li><a href="<?php /*echo $r->homepage;*/ echo base_url().'/offers/'.$r->brand_id;?>" target="_blank"><?php echo $r->brand;?></a></li>
-                <?php
-                    }
-                }
-                ?>
-              </ul>
+
+                    <table class="table">
+                        <thead>
+                            <th>ID</th>
+                            <th>Offer QR</th>
+                            <th>Offer Name</th>
+                            <th>Offer URL</th>
+                        <thead>
+                       
+                        <tbody>
+                        <?php
+                            $row = 0;
+                            foreach($result_offers as $r)
+                            {
+                                $row++;
+                                
+                        ?>
+                           
+                           
+                            <tr style="border: 0px solid #ced4da;">
+                                <td style="border: 0px solid #ced4da;">
+                                   
+                                </td>
+                                <td style="border: 0px solid #ced4da;">
+                                   
+                                </td>
+                                <td style="border: 0px solid #ced4da;">
+                                   <a href="" target="_blank"><?php echo $r->offer;?></a>
+                                </td>
+                                <td style="border: 0px solid #ced4da;">
+                                   
+                                </td>
+                            </tr>
+                        <?php
+                            }
+                        ?>
+
+                        </tbody>            
+
             </div><!-- /.col-->
-            <div class="col">
-              <ul>
-                <?php
-                $row = 0;
-                foreach($result_brands as $r)
-                {
-                    $row++;
-                    if ($row %2 == 0)
-                    {
-                ?>
-                <li><a href="<?php echo $r->homepage;?>" target="_blank"><?php echo $r->brand;?></a></li>
-                <?php
-                    }
-                }
-                ?>
-              </ul>
-            </div><!-- /.col-->
+            
         </div><!-- /.row-->
 
         <?php

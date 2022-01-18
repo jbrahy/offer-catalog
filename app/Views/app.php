@@ -23,29 +23,12 @@
   </head>
 
   <body>
-    <div class="container">
-      <div class="row offer-row">
-        <div class="col-xs-12 col-sm-12 col-md-8 offset-md-2">
-          <div class="text-center">
-            <a href="https://consumer-coalition.com" target="_blank">
-              <img src="assets/img/consumer-coalition-logo.png" class="img-fluid offer-image" alt="Consumer Coalition" />
-            </a>
-          </div>
-          <div class="text-center">
-            <a href="https://consumer-coalition.com" target="_blank" class="offer-url">Consumer-Coalition.com</a>
-          </div>
-          <div class="text-left">
-            <p class="offer-description">Keeping you in the know about products, medications, and medical devices to help you make informed decisions to potentially get compensation for your injuries.</p>
-            <p class="offer-description">We currently offer lead generation services for the following verticals:</p>
-          </div>
+    
 
 
          <?= $this->renderSection("body") ?>
 
 
-        </div>
-      </div>
-    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   </body>
