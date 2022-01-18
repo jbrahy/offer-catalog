@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap');
+
+body {
+    font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+}
+
+main {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+main .row {
+    margin-bottom: 1.5rem;
+}
+
+main h1 {
+    font-size: 2.5rem;
+    font-weight: 400;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+}
+
+main p {
+    font-size: 1rem;
+    font-weight: 400;
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+main label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+main .form-group {
+    margin-bottom: 1.25rem;
+}
+
+@media only screen and (max-width: 767px) {
+    input, select {
+        margin: 0.25rem auto;
+    }
+}

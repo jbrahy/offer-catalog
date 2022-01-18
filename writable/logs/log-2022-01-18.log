@@ -1,0 +1,56 @@
+CRITICAL - 2022-01-18 02:54:54 --> Typed property App\Controllers\BaseController::$permission_option must not be accessed before initialization
+#0 /Users/jerin/Sites/localhost/upwork/adtrustmedia/offer-catalog/system/CodeIgniter.php(979): App\Controllers\Home->index()
+#1 /Users/jerin/Sites/localhost/upwork/adtrustmedia/offer-catalog/system/CodeIgniter.php(796): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#2 /Users/jerin/Sites/localhost/upwork/adtrustmedia/offer-catalog/system/CodeIgniter.php(240): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 /Users/jerin/Sites/localhost/upwork/adtrustmedia/offer-catalog/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 {main}
+CRITICAL - 2022-01-18 02:55:04 --> Undefined property: stdClass::$offer_url
+#0 /Users/jerin/Sites/localhost/upwork/adtrustmedia/offer-catalog/system/Debug/Toolbar/Collectors/History.php(92): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', '/Users/jerin/Si...', 92, Array)
+#1 /Users/jerin/Sites/localhost/upwork/adtrustmedia/offer-catalog/system/Debug/Toolbar.php(390): CodeIgniter\Debug\Toolbar\Collectors\History->setFiles(1642496101, 20)
+#2 /Users/jerin/Sites/localhost/upwork/adtrustmedia/offer-catalog/system/Debug/Toolbar.php(320): CodeIgniter\Debug\Toolbar->format(Array, 'html')
+#3 /Users/jerin/Sites/localhost/upwork/adtrustmedia/offer-catalog/app/Config/Events.php(52): CodeIgniter\Debug\Toolbar->respond()
+#4 [internal function]: CodeIgniter\Events\Events::Config\{closure}()
+#5 /Users/jerin/Sites/localhost/upwork/adtrustmedia/offer-catalog/system/Events/Events.php(119): call_user_func(Object(Closure))
+#6 /Users/jerin/Sites/localhost/upwork/adtrustmedia/offer-catalog/system/CodeIgniter.php(220): CodeIgniter\Events\Events::trigger('pre_system')
+#7 /Users/jerin/Sites/localhost/upwork/adtrustmedia/offer-catalog/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 {main}
+CRITICAL - 2022-01-18 02:55:56 --> Undefined property: stdClass::$offer_url
+#0 /Users/jerin/Sites/localhost/upwork/adtrustmedia/offer-catalog/system/Debug/Toolbar/Collectors/History.php(92): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', '/Users/jerin/Si...', 92, Array)
+#1 /Users/jerin/Sites/localhost/upwork/adtrustmedia/offer-catalog/system/Debug/Toolbar.php(390): CodeIgniter\Debug\Toolbar\Collectors\History->setFiles(1642496156, 20)
+#2 /Users/jerin/Sites/localhost/upwork/adtrustmedia/offer-catalog/system/Debug/Toolbar.php(320): CodeIgniter\Debug\Toolbar->format(Array, 'html')
+#3 /Users/jerin/Sites/localhost/upwork/adtrustmedia/offer-catalog/app/Config/Events.php(52): CodeIgniter\Debug\Toolbar->respond()
+#4 [internal function]: CodeIgniter\Events\Events::Config\{closure}()
+#5 /Users/jerin/Sites/localhost/upwork/adtrustmedia/offer-catalog/system/Events/Events.php(119): call_user_func(Object(Closure))
+#6 /Users/jerin/Sites/localhost/upwork/adtrustmedia/offer-catalog/system/CodeIgniter.php(220): CodeIgniter\Events\Events::trigger('pre_system')
+#7 /Users/jerin/Sites/localhost/upwork/adtrustmedia/offer-catalog/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 {main}
+CRITICAL - 2022-01-18 02:56:15 --> Undefined property: stdClass::$offer_url
+#0 /Users/jerin/Sites/localhost/upwork/adtrustmedia/offer-catalog/system/Debug/Toolbar/Collectors/History.php(92): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', '/Users/jerin/Si...', 92, Array)
+#1 /Users/jerin/Sites/localhost/upwork/adtrustmedia/offer-catalog/system/Debug/Toolbar.php(390): CodeIgniter\Debug\Toolbar\Collectors\History->setFiles(1642496156, 20)
+#2 /Users/jerin/Sites/localhost/upwork/adtrustmedia/offer-catalog/system/Debug/Toolbar.php(320): CodeIgniter\Debug\Toolbar->format(Array, 'html')
+#3 /Users/jerin/Sites/localhost/upwork/adtrustmedia/offer-catalog/app/Config/Events.php(52): CodeIgniter\Debug\Toolbar->respond()
+#4 [internal function]: CodeIgniter\Events\Events::Config\{closure}()
+#5 /Users/jerin/Sites/localhost/upwork/adtrustmedia/offer-catalog/system/Events/Events.php(119): call_user_func(Object(Closure))
+#6 /Users/jerin/Sites/localhost/upwork/adtrustmedia/offer-catalog/system/CodeIgniter.php(220): CodeIgniter\Events\Events::trigger('pre_system')
+#7 /Users/jerin/Sites/localhost/upwork/adtrustmedia/offer-catalog/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 {main}
+CRITICAL - 2022-01-18 02:56:38 --> Undefined property: stdClass::$offer_url
+#0 /Users/jerin/Sites/localhost/upwork/adtrustmedia/offer-catalog/system/Debug/Toolbar/Collectors/History.php(92): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', '/Users/jerin/Si...', 92, Array)
+#1 /Users/jerin/Sites/localhost/upwork/adtrustmedia/offer-catalog/system/Debug/Toolbar.php(390): CodeIgniter\Debug\Toolbar\Collectors\History->setFiles(1642496156, 20)
+#2 /Users/jerin/Sites/localhost/upwork/adtrustmedia/offer-catalog/system/Debug/Toolbar.php(320): CodeIgniter\Debug\Toolbar->format(Array, 'html')
+#3 /Users/jerin/Sites/localhost/upwork/adtrustmedia/offer-catalog/app/Config/Events.php(52): CodeIgniter\Debug\Toolbar->respond()
+#4 [internal function]: CodeIgniter\Events\Events::Config\{closure}()
+#5 /Users/jerin/Sites/localhost/upwork/adtrustmedia/offer-catalog/system/Events/Events.php(119): call_user_func(Object(Closure))
+#6 /Users/jerin/Sites/localhost/upwork/adtrustmedia/offer-catalog/system/CodeIgniter.php(220): CodeIgniter\Events\Events::trigger('pre_system')
+#7 /Users/jerin/Sites/localhost/upwork/adtrustmedia/offer-catalog/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 {main}
+CRITICAL - 2022-01-18 02:56:46 --> Undefined property: stdClass::$offer_url
+#0 /Users/jerin/Sites/localhost/upwork/adtrustmedia/offer-catalog/system/Debug/Toolbar/Collectors/History.php(92): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', '/Users/jerin/Si...', 92, Array)
+#1 /Users/jerin/Sites/localhost/upwork/adtrustmedia/offer-catalog/system/Debug/Toolbar.php(390): CodeIgniter\Debug\Toolbar\Collectors\History->setFiles(1642496205, 20)
+#2 /Users/jerin/Sites/localhost/upwork/adtrustmedia/offer-catalog/system/Debug/Toolbar.php(320): CodeIgniter\Debug\Toolbar->format(Array, 'html')
+#3 /Users/jerin/Sites/localhost/upwork/adtrustmedia/offer-catalog/app/Config/Events.php(52): CodeIgniter\Debug\Toolbar->respond()
+#4 [internal function]: CodeIgniter\Events\Events::Config\{closure}()
+#5 /Users/jerin/Sites/localhost/upwork/adtrustmedia/offer-catalog/system/Events/Events.php(119): call_user_func(Object(Closure))
+#6 /Users/jerin/Sites/localhost/upwork/adtrustmedia/offer-catalog/system/CodeIgniter.php(220): CodeIgniter\Events\Events::trigger('pre_system')
+#7 /Users/jerin/Sites/localhost/upwork/adtrustmedia/offer-catalog/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#8 {main}
