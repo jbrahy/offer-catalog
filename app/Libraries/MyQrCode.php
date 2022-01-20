@@ -1,24 +1,24 @@
 <?php
 /**
     *  QR Code
-    *  二维码类
+    *  
     *
     * @author http://weibo.com/yakeing
     * @version 3.2.1
     *
-    *  $text  [QR code content] (string) (二维码内容)
-    *  $pixel [size of the QR] (ini) (输出图片尺寸)
-    *  $icon [Icon path] (string) (二维码中间小图标)
-    *  $distinguish [Recognition rate] (L=7% , M=15% , Q=25% , H=30%) (识别率)
-    *  $type [Output image format] (jpg/png)  (输出图片格式, 因GIF有版权之争)
-    *  $margin [QR code margin] ( 0-4) 边距
-    *  $color [QR code color] RBG array('255,255,255', '0,0,0') OR Hexadecimal 'FF0000,000000' (二维码颜色)
-    *  $stream [Source code] (true/false) (输出源代码)
-    *  $spec [specifications] (0-40) (规格矩阵)
+    *  $text  [QR code content] (string) 
+    *  $pixel [size of the QR] (ini) 
+    *  $icon [Icon path] (string) 
+    *  $distinguish [Recognition rate] (L=7% , M=15% , Q=25% , H=30%) 
+    *  $type [Output image format] (jpg/png)  
+    *  $margin [QR code margin] ( 0-4) 
+    *  $color [QR code color] RBG array('255,255,255', '0,0,0') OR Hexadecimal 'FF0000,000000' (
+    *  $stream [Source code] (true/false) 
+    *  $spec [specifications] (0-40) 
     *
     *  qrcode::image($text, $pixel, $icon, $distinguish, $type, $margin, $color, $stream);
-    *  注意: 背景 $color[0] 颜色 ff0000 相撞 $icon 变成透明;
-    *  使用正方形 $icon 否则出现小图标变形
+    *  $color[0] ff0000 $icon ;
+    *   $icon
  */
 
 namespace App\Libraries;
@@ -35,21 +35,21 @@ class MyQrCode{
 
 
     public static function image($text, $pixel = 200, $icon = false, $distinguish = 'L', $type = 'PNG', $margin = 0, $color = false, $spec=1, $stream = false, $OutputPath = null){
-        //string 文字
+        //string 
         $string = new qrcode_string();
         $string->initial($text, $distinguish, intval($spec));
         $datacode = $string->getByteStream();
         $version = $string->version;
-        //pattern 模式
+        //pattern 
         $pattern = new qrcode_pattern();
         $width = $pattern->getWidth($version);
         $frame = $pattern->newFrame($version);
-        //exchange 转换
+        //exchange 
         $exchange = new qrcode_exchange();
         $masked = $exchange->run($string, $width, $frame, $datacode);
         $tab = $exchange->binarize($masked);
         if(true === $stream) return $tab;
-        //image 图像
+        //image
         $img = new qrcode_image();
         $im = $img->ImgColor($tab, $pixel, $icon, $margin, $color);
         if(!is_string($OutputPath)){
@@ -60,23 +60,23 @@ class MyQrCode{
             ImagePNG($im, $OutputPath);
         }else{
             header('Content-type: image/JPEG');
-            ImageJPEG($im, $OutputPath);//合成输出
+            ImageJPEG($im, $OutputPath);
         }
-        ImageDestroy($im); //结束图形
+        ImageDestroy($im); 
         return $im;
     }
 }//END class qrcode
 
 /*
-* QR Code Image 图像处理
+* QR Code Image 
 * Author: weibo.com/yakeing
-* ImageCreate 256色
-* ImageCreateTrueColor 真彩色
-* ImageCopyResized  粗糙速度快
-* ImageCopyResampled  平滑速度慢
+* ImageCreate 256
+* ImageCreateTrueColor 
+* ImageCopyResized  
+* ImageCopyResampled  
 */
 class qrcode_image{
-    //图像与颜色
+    
     function ImgColor($frame, $pixel, $iconurl, $margin, $color){
         //$pixel = $pixel/count($frame);
         if(is_array($color) && 2 == count($color)){ //RGB
@@ -144,7 +144,7 @@ class qrcode_image{
     } //END image
 
     //ADD ICON  (3.7948)
-    // http://php.net/manual/zh/function.exif-imagetype.php 图像类型常量
+    // http://php.net/manual/zh/function.exif-imagetype.php 
     private function addIcon($im, $icon, $RGB){
         if(function_exists('exif_imagetype')){
             $type = exif_imagetype($icon);
@@ -180,7 +180,7 @@ class qrcode_image{
         ImageDestroy($white_im);
         //Transparent Background + alpha
         $AlphaIm = ImageCreateTrueColor($BackgX, $BackgY);
-        $AlphaColo = ImageColorAllocateAlpha($AlphaIm, 255, 0, 0, 127);//分配颜色 + alpha
+        $AlphaColo = ImageColorAllocateAlpha($AlphaIm, 255, 0, 0, 127);
         ImageFill($AlphaIm, 0, 0, $AlphaColo);
         ImageCopyResized($AlphaIm, $RadiusWhite, 0, 0, 0, 0, $BackgX, $BackgY, $BackgX, $BackgY);
         ImageDestroy($RadiusWhite);
@@ -199,17 +199,17 @@ class qrcode_image{
         return $im;
     } //END addIcon
 
-    //图片圆角
-    //GD 2.0.1 或更高版本
+    
+    //GD 2.0.1 
     private function radiusImage($im, $width, $height){
-        $image = ImageCreateTrueColor($width, $height); //新建真彩图像
+        $image = ImageCreateTrueColor($width, $height); 
         $bgcolor = ImageColorAllocate($image, 255, 0, 0);
         ImageFill($image, 0, 0, $bgcolor);
         ImageCopyMerge($image, $im, 0, 0, 0, 0, $width, $height, 100);
         //radius Image
         $radiusX = $width/4;
         $radiusY = $height/4;
-        $img = ImageCreateTrueColor($radiusX, $radiusY); //新建真彩图像
+        $img = ImageCreateTrueColor($radiusX, $radiusY);
         $fgcolor = ImageColorAllocate($img, 0, 0, 0);
         $bgcolor = ImageColorAllocate($img, 255, 0, 0);
         ImageFill($img, 0, 0, $bgcolor);
@@ -219,7 +219,7 @@ class qrcode_image{
         // Top left
         ImageCopyMerge($image, $img, 0, 0, 0, 0, $width, $height, 100);
         // Bottom left
-        $bottom_left  = ImageRotate($img, 90, $bgcolor);  //角度旋转
+        $bottom_left  = ImageRotate($img, 90, $bgcolor);  
         ImageCopyMerge($image, $bottom_left, 0, $height - $radiusY+1, 0, 0, $width, $height, 100);
         ImageDestroy($bottom_left);
         // Top right
@@ -231,7 +231,7 @@ class qrcode_image{
         ImageCopyMerge($image, $bottom_right, $width - $radiusX+1, 0, 0, 0, $width, $height, 100);
         ImageDestroy($bottom_right);
         ImageDestroy($img);
-        ImageColorTransparent($image, $bgcolor);  //设置颜色为透明
+        ImageColorTransparent($image, $bgcolor);  
         return $image;
     } //END radiusImage
 
@@ -239,7 +239,7 @@ class qrcode_image{
 
 
 /*
-* QR Code Exchange 转换
+* QR Code Exchange
 *
 * PHP QR Code is distributed under LGPL 3
 * Copyright (C) 2010 Dominik Dzienia
@@ -247,7 +247,7 @@ class qrcode_image{
 */
 class qrcode_exchange{
 
-    //二进制转换
+    
     function binarize($frame){
         $len = count($frame);
         foreach ($frame as &$frameLine) {
@@ -258,7 +258,7 @@ class qrcode_exchange{
         return $frame;
     }//END binarize
 
-    //run 初始run
+    //run 
     function run($input, $width, $frame, $datacode){
         $this->runLength = array();
         $this->runLength = array_fill(0, 177 + 1, 0);
@@ -284,7 +284,7 @@ class qrcode_exchange{
         return $this->mask($width, $filler->frame, $input->level);
     }//END run
 
-    //initframe 初始框架数据
+    //initframe 
     private function initframe($width, $frame){
             $this->width = $width;
             $this->frame = $frame;
@@ -294,17 +294,17 @@ class qrcode_exchange{
             $this->bit = -1;
     }//END initframe
 
-    //get 得到剩余
+    //get 
     private function getRemainder($version){
             return qrcode_table::$capacity[$version][2];
     }//END getRemainder
 
-    //set设置框架
+    //set
     private function setFrameAt($at, $val){
             $this->frame[$at['y']][$at['x']] = chr($val);
     }//END setFrameAt
 
-    //next 紧邻
+    //next
     private function nexts(){
         do {
             if($this->bit == -1) {
@@ -350,7 +350,7 @@ class qrcode_exchange{
         return array('x'=>$x, 'y'=>$y);
     }//END next
 
-    //mask 掩码
+    //mask 
     private function mask($width, $frame, $level){
         $minDemerit = PHP_INT_MAX;
         $bestMaskNum = 0;
@@ -381,7 +381,7 @@ class qrcode_exchange{
         return $bestMask;
     }//END mask
 
-    //make 做掩码开关
+    //make 
     private function makeMaskNo($maskNo, $width, $s, &$d, $maskGenOnly = false) {
         $b = 0;
         $bitMask = array();
@@ -397,7 +397,7 @@ class qrcode_exchange{
         return $b;
     }//NED makeMaskNo
 
-    //generate 生成掩码开关
+    //generate
     private function generateMaskNo($maskNo, $width, $frame){
         $bitMask = array_fill(0, $width, array_fill(0, $width, 0));
         for($y=0; $y<$width; ++$y) {
@@ -421,7 +421,7 @@ class qrcode_exchange{
     private function mask5($x, $y) { return (($x*$y)&1)+($x*$y)%3; }
     private function mask6($x, $y) { return ((($x*$y)&1)+($x*$y)%3)&1; }
     private function mask7($x, $y) { return ((($x*$y)%3)+(($x+$y)&1))&1; }
-    //write 写信息
+    //write 
 
     private function writeFormatInformation($width, &$frame, $mask, $level){
         $blacks = 0;
@@ -459,14 +459,14 @@ class qrcode_exchange{
         return $blacks;
     }//END writeFormatInformation
 
-    //get 获得格式信息
+    //get 
     private function getFormatInfo($mask, $level){
         if($mask < 0 || $mask > 7) return 0;
         if($level < 0 || $level > 3) return 0;
         return qrcode_table::$formatInfo[$level][$mask];
     }//END getFormatInfo
 
-    //evaluate 评价符号
+    //evaluate 
     private function evaluateSymbol($width, $frame){
         $head = 0;
         $demerit = 0;
@@ -518,7 +518,7 @@ class qrcode_exchange{
         return $demerit;
     }//END evaluateSymbol
 
-    //calc 计算n1 n3模式
+    //calc 
     private function calcN1N3($length){
         $demerit = 0;
         for($i=0; $i<$length; ++$i) {
@@ -551,7 +551,7 @@ class qrcode_exchange{
 */
 class qrcode_string{
 
-    //initial 初始化 public
+    //initial 
     function initial($dataStr, $level, $spec){
         $this->dataStr = $dataStr; //Str 字符串
         $this->level = $this->GetGrade($level); //level 识别率
@@ -564,14 +564,14 @@ class qrcode_string{
         $this->splitString();
     }//END initial
 
-    //get 获取当前识别率 lovel
+    //get 
     private function GetGrade($i){
         return qrcode_table::$grade[strtoupper($i)];
     }//END GetGrade
 
     //----------------------------------------NO: 第四分支 附加 to------------------------------------------
 
-    //set 字符 public
+    //set  public
     function setString($input){
         $this->newcode();
         $spec = array(0,0,0,0,0);
@@ -589,19 +589,19 @@ class qrcode_string{
         return $this;
     }//END setString
 
-    //new 新类
+    //new 
     private function newinit(){
         $this->alpha_to = $this->index_of = $this->genpoly = array();   // Generator polynomial
         $this->mm = $this->nn = $this->nroots = $this->fcr = $this->prim = $this->iprim = $this->pad = $this->gfpoly = NULL;
     }//NED newinit
 
-    //new 新类
+    //new
     private function newcode(){
         $this->ecccode = $this->rsblocks = array(); //of RSblock
         $this->blocks = $this->count = $this->dataLength = $this->eccLength = $this->b1 = NULL;
     }//NED newcode
 
-    //ECC 获得ECC规格 ok
+    //ECC ok
     private function getEccSpec($version, $level, array &$spec){
         if (count($spec) < 5) $spec = array(0,0,0,0,0);
         $b1   = qrcode_table::$eccTable[$version][$level][0];
@@ -623,7 +623,7 @@ class qrcode_string{
         }
     }//END getEccSpec
 
-    //get 获取ECC长度
+    //get 
     private function getECCLength($version, $level){
         return qrcode_table::$capacity[$version][3][$level];
     }//END getECCLength
@@ -639,7 +639,7 @@ class qrcode_string{
     private function rsDataCodes2($spec)   { return $spec[4]; }
     private function rsEccCodes2($spec)    { return $spec[2]; }
 
-    //init 初始init
+    //init
     private function init(array $spec){
         $this->items = array();
         $dl = $this->rsDataCodes1($spec);
@@ -672,7 +672,7 @@ class qrcode_string{
         return 0;
     }//END init
 
-    //get 获取带吗 public
+    //get public
     function getCode(){
         if($this->count < $this->dataLength) {
             $row = $this->count % $this->blocks;
@@ -706,7 +706,7 @@ class qrcode_string{
         return $rs;
     }//END init_rs
 
-    //init RS字符
+    //init RS
     private function init_rs_char($symsize, $gfpoly, $fcr, $prim, $nroots, $pad){
         $rs = null;
         // Check parameter ranges
@@ -779,7 +779,7 @@ class qrcode_string{
         return $x;
     }//END modnn
 
-    //qrrsblock RSB锁
+    //qrrsblock RSB
     private function qrrsblock($dl, $data, $el, &$ecc, $rs){
         $qrcode = new qrcode_string();
         $rs->encode_rs_char($data, $ecc);
@@ -790,7 +790,7 @@ class qrcode_string{
         return $qrcode;
     }//END qrrsblock
 
-    //encode 编码RS字符
+    //encode 
     private function encode_rs_char($data, &$parity){
         $MM       =& $this->mm;
         $NN       =& $this->nn;
@@ -823,14 +823,14 @@ class qrcode_string{
 
     //----------------------------------------NO: 第三分支 流系列 to------------------------------------------
 
-    //get 得到字节流 public
+    //get  public
     function getByteStream(){
         $bstream = $this->getBitStream();
         if($bstream == null) return null;
         return $bstream->toByte();
     }// END getByteStream
 
-    //get  编码流
+    //get  
     private function getBitStream(){
         $bstream = $this->mergeBitStream();
         if($bstream == null) return null;
@@ -839,7 +839,7 @@ class qrcode_string{
         return $bstream;
     }//END getBitStream
 
-    //to 字节
+    //to 
     private function toByte(){
         $size = $this->size();
         if($size == 0) return array();
@@ -867,7 +867,7 @@ class qrcode_string{
         return $data;
     }// toByte
 
-    //merge 合并流
+    //merge 
     private function mergeBitStream(){
         if($this->convertData() < 0) return null;
         $bstream = new qrcode_string();
@@ -879,12 +879,12 @@ class qrcode_string{
         return $bstream;
     }//END mergeBitStream
 
-    //size 数组数量
+    //size
     private function size(){
         return count($this->data);
     }//END size
 
-    //append 追加
+    //append 
     private function append($mode, $size, $data){
         try {
             $entry = new qrcode_string();
@@ -897,7 +897,7 @@ class qrcode_string{
         }
     }//END append
 
-    //size 追加size
+    //size 
     private function append_size($arg){
         if (is_null($arg)) return -1;
         if($arg->size() == 0) return 0;
@@ -909,7 +909,7 @@ class qrcode_string{
         return 0;
     }//END append_size
 
-    //QRinputItem 赋值
+    //QRinputItem 
     private function assignment($mode, $size, $data, $bstream = null){
         $setData = array_slice($data, 0, $size);
         if (count($setData) < $size) $setData = array_merge($setData, array_fill(0,$size-count($setData),0));
@@ -924,7 +924,7 @@ class qrcode_string{
         return $this;
     }//END assignment
 
-    //check  检查
+    //check 
     private function check($mode, $size, $data){
         if($size <= 0) return false;
         switch($mode) {
@@ -938,7 +938,7 @@ class qrcode_string{
         return false;
     }//END check
 
-    //check 检查数模式
+    //check 
     private function checkModeNum($size, $data){
         for($i=0; $i<$size; ++$i) {
             if((ord($data[$i]) < ord('0')) || (ord($data[$i]) > ord('9'))) return false;
@@ -946,7 +946,7 @@ class qrcode_string{
         return true;
     }//END checkModeNum
 
-    //check 检查单模式
+    //check 
     private function checkModeAn($size, $data){
         for($i=0; $i<$size; ++$i) {
             if ($this->lookAnTable(ord($data[$i])) == -1) return false;
@@ -954,7 +954,7 @@ class qrcode_string{
         return true;
     }//END checkModeAn
 
-    //append 附加填充位
+    //append 
     private function appendPaddingBit($bstream){
         $bits = $bstream->size();
         $maxwords = $this->getDataLength($this->version, $this->level);
@@ -980,12 +980,12 @@ class qrcode_string{
         return $ret;
     }//END appendPaddingBit
 
-            //get 得到数据长度
+    //get 
     private function getDataLength($version, $level){
         return qrcode_table::$capacity[$version][1] - qrcode_table::$capacity[$version][3][$level];
     }//END getDataLength
 
-    //appendNum 追加数
+    //appendNum 
     private function appendNum($bits, $num){
         if ($bits == 0)  return 0;
         $bstream = new qrcode_string();
@@ -997,7 +997,7 @@ class qrcode_string{
         return $ret;
     }//END appendNum
 
-    //new  新数
+    //new  
     private function newFromNum($bits, $num){
         $bstream = new qrcode_string();
         $bstream->data = array();
@@ -1014,13 +1014,13 @@ class qrcode_string{
         return $bstream;
     }//END newFromNum
 
-    //allocate 分配
+    //allocate 
     private function allocate($setLength){
         $this ->data = array_fill(0, $setLength, 0);
         return 0;
     }//END allocate
 
-    //append 追加字节
+    //append 
     private function appendBytes($size, $data){
         if ($size == 0) return 0;
         $bstream = new qrcode_string();
@@ -1032,7 +1032,7 @@ class qrcode_string{
         return $ret;
     }//END appendBytes
 
-    //new 新的字节
+    //new 
     private function newFromBytes($size, $data){
         $bstream = new qrcode_string();
         $bstream->data = array();
@@ -1053,16 +1053,16 @@ class qrcode_string{
         return $bstream;
     }//END newFromBytes
 
-    //set 设置版本
+    //set 
     private function setVersion($version){
         $this->version = $version;
     }//END setVersion
 
-    //convert 转换数据
+    //convert 
     private function convertData(){
         $ver = $this->estimateVersion();
         if($ver > $this->version) $this->setVersion($ver);
-        for(;;){//to 死循环 break 条件停止
+        for(;;){//to  break 
                 $bits = $this->createBitStream();
                 if($bits < 0) return -1;
                 $ver = $this->getMinimumVersion((int)(($bits + 7) / 8), $this->level);
@@ -1078,7 +1078,7 @@ class qrcode_string{
             return 0;
     }//END convertData
 
-    //estimate 估计版本
+    //estimate 
     private function estimateVersion(){
         $version = 0;
         $prev = 0;
@@ -1093,7 +1093,7 @@ class qrcode_string{
         return $version;
     }//END estimateVersion
 
-    //create 创建流
+    //create 
     private function createBitStream(){
         $total = 0;
         foreach($this->items as $item){
@@ -1104,7 +1104,7 @@ class qrcode_string{
         return $total;
     }//END createBitStream
 
-    //encodeBitStream 编码比特流
+    //encodeBitStream 
     private function encodeBitStream($version){
         try {
             unset($this->bstream);
