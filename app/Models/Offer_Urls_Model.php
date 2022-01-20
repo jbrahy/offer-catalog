@@ -16,8 +16,10 @@ class Offer_Urls_Model extends Model {
 	protected $useSoftDeletes     = FALSE;
 	protected $allowedFields
 		= [
-			'offer_url' ,
-			'created_by',
+			'offer_id'         ,
+			'offer_url'        ,
+			'offer_url_type_id',
+			'created_by'       ,
 		];
 
 	// Dates

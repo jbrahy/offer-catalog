@@ -10,12 +10,38 @@
                   <img src="<?php echo base_url();?>/assets/img/consumer-coalition-logo.png" class="img-fluid offer-image" alt="Consumer Coalition" />
                 </a>
               </div>
+
               <div class="text-center">
                 <a href="<?php echo $brandData->homepage;?>" target="_blank" class="offer-url"><?php echo $brandData->brand;?></a>
               </div>
-              <div class="text-left">
-                <p class="offer-description"><?php echo $brandData->synopsis;?></p>
+
+              <div class="text-center">
+                
+
+
+                        <div class="row">
+                            <div class="col">
+
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <a href="<?php echo base_url();?>" >
+                                                  <img src="<?php echo base_url();?>/uploads/3m-military-earplug.jpeg" width="200" class="img-fluid offer-image" alt="<?php echo $brandData->brand;?>" />
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <?php echo $brandData->synopsis;?>
+                                            </td>
+                                        </tr>    
+                                    </tbody>
+                                </thead>
+                            </thead>
+                        </table>                
+
               </div>
+
+             
     
         <?php
 
@@ -45,7 +71,7 @@
                            
                             <tr style="border: 0px solid #ced4da;">
                                 <td style="border: 0px solid #ced4da;">
-                                   
+                                   <?php echo $r->offer_id;?>
                                 </td>
                                 <td style="border: 0px solid #ced4da;">
                                    

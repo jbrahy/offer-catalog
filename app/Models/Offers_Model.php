@@ -16,6 +16,7 @@ class Offers_Model extends Model {
 	protected $useSoftDeletes     = FALSE;
 	protected $allowedFields
 		= [
+			'brand_id'  ,
 			'offer'     ,
 			'created_by',
 		];
