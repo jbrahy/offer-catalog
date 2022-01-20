@@ -1128,7 +1128,7 @@ class qrcode_string{
                     case 0: $ret = $this->encodeModeNum($version);    break;
                     case 1: $ret = $this->encodeModeAn($version);    break;
                     case 2: $ret = $this->encodeMode8($version);    break;
-                //--------------------------  case 3: $ret = $this->encodeModeKanji($version);break; ----------
+                
                     case 4: $ret = $this->encodeModeStructure();    break;
                     default: break;
                 }
@@ -1140,7 +1140,7 @@ class qrcode_string{
         }
     }//END encodeBitStream
 
-    //maximum 最大词
+    //maximum 
     private function maximumWords($mode, $version){
         if($mode == 4) return 3;
         if($version <= 9){
@@ -1156,7 +1156,7 @@ class qrcode_string{
         return $words;
     }//END maximumWords
 
-    //encode 数编码模式
+    //encode 
     private function encodeModeNum($version){
         try {
             $words = (int)($this->size / 3);
@@ -1187,7 +1187,7 @@ class qrcode_string{
         }
     }//END encodeModeNum
 
-    //encode 编码单方式
+    //encode 
     private function encodeModeAn($version){
             try {
                 $words = (int)($this->size / 2);
@@ -1211,7 +1211,7 @@ class qrcode_string{
             }
     }//END encodeModeAn
 
-    //encode 编码8模式
+    //encode 
     private function encodeMode8($version){
         try {
             $bstream = new qrcode_string();
@@ -1228,7 +1228,7 @@ class qrcode_string{
         }
     }//END encodeMode8
 
-    //encode 编码结构模式
+    //encode 
     private function encodeModeStructure(){
         try {
             $bstream = new qrcode_string();
@@ -1244,7 +1244,7 @@ class qrcode_string{
         }
     }// END encodeModeStructure
 
-    //get  获得最小版本
+    //get  
     private function getMinimumVersion($size, $level){
         for($i=1; $i<= 40; ++$i){
             $words  = qrcode_table::$capacity[$i][1] - qrcode_table::$capacity[$i][3][$level];
@@ -1253,7 +1253,7 @@ class qrcode_string{
         return -1;
     }//END getMinimumVersion
 
-    //estimate 估计比特流大小
+    //estimate
     private function estimateBitStreamSize($version){
         $bits = 0;
         foreach($this->items as $item){
@@ -1262,7 +1262,7 @@ class qrcode_string{
         return $bits;
     }//END estimateBitStreamSize
 
-    //estimate 输入估计比特流大小
+    //estimate
     private function estimateBitStreamSizeOfEntry($version){
         $bits = 0;
         if($version == 0) $version = 1;
@@ -1270,7 +1270,6 @@ class qrcode_string{
             case 0: $bits = $this->estimateBitsModeNum($this->size); break;
             case 1: $bits = $this->estimateBitsModeAn($this->size); break;
             case 2: $bits = $this->estimateBitsMode8($this->size); break;
-            // --------------- case 3: $bits = $this->estimateBitsModeKanji($this->size); break;
             case 4:    return 20;
             default: return 0;
         }
@@ -1281,9 +1280,9 @@ class qrcode_string{
         return $bits;
     }//END estimateBitStreamSizeOfEntry
 
-    //----------------------------------------NO: 第二分支 字符串系列 to------------------------------------------
+    //----------------------------------------NO: to------------------------------------------
 
-    //split 拆分字符串
+    //split 
     private function splitString(){
         while (strlen($this->dataStr) > 0){
             if($this->dataStr == '') return 0;
@@ -1291,7 +1290,6 @@ class qrcode_string{
             switch ($mode){
                 case 0: $length = $this->eatNum(); break;
                 case 1: $length = $this->eatAn(); break;
-                //----------------  case 3: $length = $this->eatKanji(); break;
                 default: $length = $this->eat8(); break;
             }
             if($length == 0) return 0;
@@ -1303,7 +1301,7 @@ class qrcode_string{
         return $items;
     }//END splitString
 
-    //Num  数字
+    //Num  
     private function eatNum(){
         $ln = $this->lengthIndicator(0, $this->version);
         $p = 0;
@@ -1329,7 +1327,7 @@ class qrcode_string{
         return $run;
     }//END eatNum
 
-    //An 单个
+    //An 
     private function eatAn(){
         $la = $this->lengthIndicator(1,  $this->version);
         $ln = $this->lengthIndicator(0, $this->version);
@@ -1365,7 +1363,7 @@ class qrcode_string{
     }//END eatAn
 
     /*----------------------------------
-    //Kanji  汉字
+    //Kanji  
     function eatKanji(){
         $p = 0;
         while($this->identifyMode($p) == 3){
@@ -1374,7 +1372,7 @@ class qrcode_string{
         $ret = $this->append(3, $p, str_split($this->dataStr));
         if($ret < 0) return -1;
         return $run;
-    }//END eatKanji
+    }//END 
     ------------------------------ */
 
     //eat8
@@ -1422,7 +1420,7 @@ class qrcode_string{
         return $run;
     }//END eat8
 
-    //length 长度指示
+    //length 
     private function lengthIndicator($mode, $version){
         if ($mode == 4) return 0;
         if ($version <= 9){
@@ -1435,7 +1433,7 @@ class qrcode_string{
         return qrcode_table::$lengthTableBits[$mode][$l];
     }//END lengthIndicator
 
-    //estimate 估算位数 数字
+    //estimate 
     private function estimateBitsModeNum($size){
         $w = (int)$size / 3;
         $bits = $w * 10;
@@ -1447,19 +1445,19 @@ class qrcode_string{
         return $bits;
     }//END estimateBitsModeNum
 
-    //estimate 估算位数 模式8
+    //estimate 
     private function estimateBitsMode8($size){
         return $size * 8;
     }//END estimateBitsMode8
 
     /*-------------------------
-    //estimate 估计比特模式汉字
+    //estimate 
     function estimateBitsModeKanji($size){
             return (int)(($size / 2) * 13);
     }//END estimate
     -------------------------------------------*/
 
-    //estimate 估算位数 单个
+    //estimate 
     private function estimateBitsModeAn($size){
         $w = (int)($size / 2);
         $bits = $w * 11;
@@ -1467,9 +1465,6 @@ class qrcode_string{
         return $bits;
     }//END estimateBitsModeAn
 
-    //----------------------------------------NO: 第一分支 模式系列 to------------------------------------------
-
-    //identify 匹配ID模式
     private function identifyMode($pos){
         if($pos >= strlen($this->dataStr)) return -1;
         $c = $this->dataStr[$pos];
@@ -1478,33 +1473,23 @@ class qrcode_string{
         }else if($this->isalnumat($this->dataStr, $pos)){
             return 1;
         }
-        /*----------------------------------------------
-        else if($this->modeHint == 3){ // modeHint =0/2  不可能是3
-            if($pos+1 < strlen($this->dataStr)){
-                $d = $this->dataStr[$pos+1];
-                $word = (ord($c) << 8) | ord($d);
-                if(($word >= 0x8140 && $word <= 0x9ffc) || ($word >= 0xe040 && $word <= 0xebbf)){
-                    return 3;
-                }
-            }
-        }
-        ---------------------------------- */
+        
         return 2;
     }//END identifyMode
 
-    //isdigitat  是否数字
+    //isdigitat 
     private function isdigitat($str, $pos){
             if ($pos >= strlen($str)) return false;
             return ((ord($str[$pos]) >= ord('0'))&&(ord($str[$pos]) <= ord('9')));
     }//END isdigitat
 
-    //isalnumat  是否
+    //isalnumat  
     private function isalnumat($str, $pos){
             if ($pos >= strlen($str)) return false;
             return ($this->lookAnTable(ord($str[$pos])) >= 0);
     }//END isalnumat
 
-    //Table  查询表
+    //Table 
     private function lookAnTable($c){
             return (($c > 127) ? -1 : qrcode_table::$anTable[$c]);
     }//END lookAnTable
@@ -1512,14 +1497,14 @@ class qrcode_string{
 }//END class qrcode_string
 
 /*
- * QR Code Table 表
+ * QR Code Table 
  * PHP QR Code is distributed under LGPL 3
  * Copyright (C) 2010 Dominik Dzienia
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 */
 class qrcode_table{
 
-    //Info 格式信息
+    //Info 
     public static $formatInfo = array(
         array(0x77c4, 0x72f3, 0x7daa, 0x789d, 0x662f, 0x6318, 0x6c41, 0x6976),
         array(0x5412, 0x5125, 0x5e7c, 0x5b4b, 0x45f9, 0x40ce, 0x4f97, 0x4aa0),
@@ -1527,7 +1512,7 @@ class qrcode_table{
         array(0x1689, 0x13be, 0x1ce7, 0x19d0, 0x0762, 0x0255, 0x0d0c, 0x083b)
     );
 
-    //ECC表
+    //ECC
     public static $eccTable = array(
         array(array( 0,  0), array( 0,  0), array( 0,  0), array( 0,  0)),
         array(array( 1,  0), array( 1,  0), array( 1,  0), array( 1,  0)), // 1
@@ -1572,13 +1557,13 @@ class qrcode_table{
         array(array(19,  6), array(18, 31), array(34, 34), array(20, 61)),//40
         );
 
-    //length 长度表位
+    //length 
     public static $lengthTableBits = array(array(10, 12, 14), array( 9, 11, 13), array( 8, 16, 16), array( 8, 10, 12));
 
-    //grade 识别等级
+    //grade 
     public static $grade = array('L'=> 0, 'M'=> 1, 'Q'=> 2,'H'=> 3);
 
-    //an 单一表
+    //an 
     public static $anTable = array(
         -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
         -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
@@ -1589,7 +1574,7 @@ class qrcode_table{
         -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
         -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 
-    //versionPattern 版本模式表
+    //versionPattern 
     public static $versionPattern = array(
         0x07c94, 0x085bc, 0x09a99, 0x0a4d3, 0x0bbf6, 0x0c762, 0x0d847, 0x0e60d,
         0x0f928, 0x10b78, 0x1145d, 0x12a17, 0x13532, 0x149a6, 0x15683, 0x168c9,
@@ -1597,7 +1582,7 @@ class qrcode_table{
         0x1f250, 0x209d5, 0x216f0, 0x228ba, 0x2379f, 0x24b0b, 0x2542e, 0x26a64,
         0x27541, 0x28c69);
 
-    //Pattern 排列方式表
+    //Pattern
     public static $alignmentPattern = array(
         array( 0,  0),
         array( 0,  0), array(18,  0), array(22,  0), array(26,  0), array(30,  0), // 1- 5
@@ -1609,7 +1594,7 @@ class qrcode_table{
         array(30, 56), array(34, 60), array(30, 58), array(34, 62), array(30, 54), //31-35
         array(24, 50), array(28, 54), array(32, 58), array(26, 54), array(30, 58) );//35-40
 
-    //capacity 容量
+    //capacity 
     public static $capacity = array(
         array(  0,    0, 0, array(   0,    0,    0,    0)),
         array( 21,   26, 0, array(   7,   10,   13,   17)), // 1
@@ -1656,7 +1641,7 @@ class qrcode_table{
 }//END class qrcode_table
 
 /*
-  * QR Code Pattern 40种模式
+  * QR Code Pattern 
   * PHP QR Code is distributed under LGPL 3
   * Copyright (C) 2010 Dominik Dzienia
    * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
@@ -1664,12 +1649,12 @@ class qrcode_table{
 class qrcode_pattern{
         public $frames = array();
 
-    //get 获得宽度 public
+    //get public
     function getWidth($version){
         return qrcode_table::$capacity[$version][0];
     }//END getWidth
 
-    //new 新框架 public
+    //new public
     function newFrame($version){
         if($version < 1 || $version > 40) return null;
         if(!isset($this->frames[$version])) $this->frames[$version] = $this->createFrame($version);
@@ -1677,7 +1662,7 @@ class qrcode_pattern{
         return $this->frames[$version];
     }//END newFrame
 
-    //create 创建框架
+    //create 
     private function createFrame($version){
         $width = qrcode_table::$capacity[$version][0];
         $frameLine = str_repeat ("\0", $width);
@@ -1737,7 +1722,7 @@ class qrcode_pattern{
         return $frame;
     }//END createFrame
 
-    //get 获得版本模式
+    //get 
     private function getVersionPattern($version){
         if($version < 7 || $version > 40){
             return 0;
@@ -1746,7 +1731,7 @@ class qrcode_pattern{
         }
     } //END getVersionPattern
 
-    //put 搜索模式
+    //put 
     private function putFinderPattern(&$frame, $ox, $oy){
         $finder = array(
             "\xc1\xc1\xc1\xc1\xc1\xc1\xc1",
@@ -1762,7 +1747,7 @@ class qrcode_pattern{
         }
     } //END putFinderPattern
 
-    //put 排列方式
+    //put 
     private function putAlignmentPattern($version, &$frame, $width){
         if($version < 2) return;
         $d = qrcode_table::$alignmentPattern[$version][1] - qrcode_table::$alignmentPattern[$version][0];
@@ -1794,7 +1779,7 @@ class qrcode_pattern{
         }
     } //END putAlignmentPattern
 
-    //put 对准标记
+    //put 
     private function putAlignmentMarker(array &$frame, $ox, $oy){
         $finder = array(
             "\xa1\xa1\xa1\xa1\xa1",
@@ -1810,7 +1795,7 @@ class qrcode_pattern{
         }
     } //END putAlignmentMarker
 
-    //set 填入数据
+    //set
     private function set(&$srctab, $x, $y, $repl, $replLen = false){
         $srctab[$y] = substr_replace($srctab[$y], ($replLen !== false)?substr($repl,0,$replLen):$repl, $x, ($replLen !== false)?$replLen:strlen($repl));
     } //END set
