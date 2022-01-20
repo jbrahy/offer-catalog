@@ -39,4 +39,26 @@ class Offers_Model extends Model {
 		// OR $this->db = db_connect();
 	}
 
+	public function get_all_brands_offers($brand_id)
+	{
+
+		$sql = <<<SQL
+    SELECT 
+		offers.*, 
+		offer_urls.* ,
+        brands.* 
+	FROM 
+		offers 
+	LEFT JOIN brands ON brands.brand_id = offers.brand_id 
+	LEFT JOIN offer_urls ON offer_urls.offer_id = offers.offer_id 
+	WHERE 
+		offers.brand_id = "$brand_id" 
+	ORDER BY 
+		offers.created_at DESC
+SQL;
+
+		$query = $this->db->query($sql);
+		return $query->getResult();
+	}
+
 }

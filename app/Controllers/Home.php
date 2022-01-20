@@ -7,6 +7,14 @@ use App\Models\Offers_Model;
 use App\Models\Offer_Urls_Model;
 use App\Models\Offer_Url_Types_Model;
 
+use App\Libraries\MyQrCode; 
+//use App\Models\Qr_Codes_Model;
+
+use chillerlan\QRCode\{QRCode, QROptions, QRImageWithLogo};
+
+
+use App\Libraries\Ciqrcode;
+
 
 class Home extends BaseController {
 
@@ -47,9 +55,50 @@ class Home extends BaseController {
 	public function offers_list($brand_id)
 	{
 		$result_brand  = $this->brands_model->find($brand_id);
-		$result_offers = $this->offers_model->where("brand_id", $brand_id)->findAll();
+		$result_offers = $this->offers_model->get_all_brands_offers($brand_id);
 
-		//echo '<pre>'.print_r($result_brand, true).'</pre>'; die("Offers List");
+		
+		$ciqrcode = new \App\Libraries\Ciqrcode();
+
+		/*
+		$data = 'https://www.youtube.com/watch?v=DLzxrzFCyOs&t=43s';
+        //$data = $this->getVcardText($qrCodeData);
+
+
+        $hex_data   = bin2hex($data);
+        //$save_name  = $hex_data . '.png';
+        $save_name  = 'qr-1.png';
+
+        // QR Code File Directory Initialize 
+        $dir = './uploads/qr/';
+        if (! file_exists($dir)) {
+            mkdir($dir, 0775, true);
+        }
+
+        //die('DIE');
+
+        //QR Configuration  
+        $config['cacheable']    = true;
+        $config['imagedir']     = $dir;
+        $config['quality']      = true;
+        $config['size']         = '512';
+        $config['black']        = [255, 255, 255];
+        $config['white']        = [255, 255, 255];
+        $ciqrcode->initialize($config);
+
+
+        // QR Data  
+        $params['data']     = $data;
+        $params['level']    = 'L';
+        $params['size']     = 10;
+        $params['savename'] = FCPATH . $config['imagedir'] . $save_name;
+
+        $ciqrcode->generate($params);
+        die();
+        */
+
+
+		//echo '<pre>'.print_r($result_offers, true).'</pre>'; die("Offers List");
 
 		return view('offers', [
 			'brandData'          => $result_brand,

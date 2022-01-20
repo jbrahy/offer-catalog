@@ -42,7 +42,18 @@ $routes->get('/', 'Home::index');
 $routes->group("home", [], function ($routes) {
 	$routes->get('/', 'Home::index');
 });
+
 $routes->get('offers/(:num)', 'Home::offers_list/$1');
+
+//OFFERS
+/*
+$routes->group("offers", ["filter" => "myauth"], function ($routes) {
+	$routes->get('/', 'Offers::index');
+	$routes->post('addnew', 'Offers::add_new');
+	$routes->get('update_offer_form/(:num)', 'Offers::update_offer_form/$1');
+	$routes->post('updateoffer/(:num)', 'Offers::update_offer/$1');
+});
+*/
 
 
 //USERS
@@ -54,8 +65,20 @@ $routes->group("users", ["filter" => "myauth"], function ($routes) {
 	$routes->post('saveuser/(:num)', 'Admin::update_user_submit/$1');
 	$routes->post('save-new-user', 'Admin::add_new_user_submit');
 	$routes->post('permission-option/(:num)/(:any)', 'Admin::update_permission_item/$1/$2');
+
+	$routes->post('addnew', 'Offers::add_new');
 });
 
+
+//ADMIN
+$routes->group("admin", function ($routes) {
+	$routes->get('/', 'Admin::login');
+	$routes->get('login', 'Admin::login');
+
+	$routes->get('offers/addnew', 'Offers::add_new');
+	$routes->post('offers/save-new-offer', 'Offers::save_new_offer');
+	
+});
 
 //$routes->post('/update-profile-submit', 'Admin::save_password');
 
