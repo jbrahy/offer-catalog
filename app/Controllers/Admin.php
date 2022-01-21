@@ -24,7 +24,7 @@ class Admin extends BaseController {
 
 		$this->brands_model                = new Brands_Model();
 		$this->offers_model                = new Offers_Model();
-		$this->offer_urls_Model            = new Offer_Urls_Model();
+		$this->offer_urls_model            = new Offer_Urls_Model();
 		$this->offer_url_types_model       = new Offer_Url_Types_Model();
 	}
 

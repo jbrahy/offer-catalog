@@ -7,54 +7,30 @@
             <div class="col-xs-12 col-sm-12 col-md-8 offset-md-2">
               <div class="text-center">
                 <a href="<?php echo base_url();?>" >
-                  <img src="<?php echo base_url();?>/assets/img/consumer-coalition-logo.png" class="img-fluid offer-image" alt="Consumer Coalition" />
+                  <img src="<?php echo base_url();?>/uploads/brands/<?php echo $result_offer->logo;?>" class="img-fluid offer-image" alt="<?php echo $result_offer->brand;?>" />
                 </a>
               </div>
 
               <div class="text-center">
-                <a href="<?php echo $brandData->homepage;?>" target="_blank" class="offer-url">
-                    <?php echo $brandData->brand;?>
+                <a href="<?php echo $result_offer->homepage;?>" target="_blank" class="offer-url">
+                    <h1>Brand: <?php echo $result_offer->brand;?></h1>
                 </a>
               </div>
 
               <div class="text-center">
                 
-
-
-                        <div class="row">
-                            <div class="col">
-
-                                <table class="table">
-
-                                    <thead>
-                                        
-                                        <th style="text-align: left">Logo</th>
-                                        <th>Synopsis</th>
-                                        
-                                    <thead>
-                                    <tbody>
-                                        <tr>
-                                            <td style="text-align: left">
-                                                <a href="<?php echo base_url();?>" >
-                                                  <img src="<?php echo base_url();?>/uploads/3m-military-earplug.jpeg" width="150" class="img-fluid" alt="<?php echo $brandData->brand;?>" />
-                                                </a>
-                                            </td>
-                                            <td style="vertical-align: top">
-                                                <?php echo $brandData->synopsis;?>
-                                            </td>
-                                        </tr>    
-                                    </tbody>
-                                </thead>
-                            </thead>
-                        </table>                
-
+                    <h3>Offer: <?php echo $result_offer->offer;?></h3>
+                
               </div>
+
+        </div> <!-- ./col-xs-12 col-sm-12 col-md-8 offset-md-2 -->
+      </div><!-- ./row offer-row -->  
 
              
     
         <?php
 
-            if ((isset($result_offers)) && (count($result_offers)>0))
+            if ((isset($result_offer_url)) && (count($result_offer_url)>0))
             {
         ?>
         <div class="row">
@@ -63,16 +39,16 @@
                     <table class="table">
                         <thead>
                             <th>ID</th>
-                            <th>Offer QR</th>
-                            <th>Offer Name</th>
+                            <th>QR</th>
                             <th>Offer URL</th>
+                            <th>URL Type</th>
                             <th>Created On</th>
                         <thead>
                        
                         <tbody>
                         <?php
                             $row = 0;
-                            foreach($result_offers as $r)
+                            foreach($result_offer_url as $r)
                             {
                                 $row++;
                                 
@@ -81,17 +57,18 @@
                            
                             <tr style="">
                                 <td style="border: 0px solid #ced4da;">
-                                   <?php echo $r->offer_id;?>
+                                   <?php echo $r->offer_url_id;?>
                                 </td>
                                 <td style="border: 0px solid #ced4da; vertical-align: top;">
-                                   <img  src="<?php echo base_url();?>/uploads/qr/qr-<?php echo $r->offer_id;?>.png" width="75" class="img-fluid" alt="" />
-                                </td>
-                                <td style="border: 0px solid #ced4da;">
-                                   <a href="" target="_blank"><?php echo $r->offer;?></a>
+                                   <img  src="<?php echo base_url();?>/uploads/qr/qr-<?php echo $r->offer_url_id;?>.png" width="75" class="img-fluid" alt="" />
                                 </td>
                                 <td style="border: 0px solid #ced4da;">
                                    <a href="<?php echo $r->offer_url;?>" target="_blank"><?php echo $r->offer_url;?></a>
                                 </td>
+                                <td style="border: 0px solid #ced4da;">
+                                   <?php echo $r->offer_url_type;?>
+                                </td>
+                                
                                 <td style="border: 0px solid #ced4da;">
                                    <?php echo $r->created_at;?>
                                 </td>
@@ -110,8 +87,7 @@
             }
         ?>
 
-        </div> <!-- ./col-xs-12 col-sm-12 col-md-8 offset-md-2 -->
-      </div><!-- ./row offer-row -->
+      
     </div><!-- ./container -->
 
 <?= $this->endSection() ?>

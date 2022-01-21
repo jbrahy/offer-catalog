@@ -42,8 +42,10 @@ $routes->get('/', 'Home::index');
 $routes->group("home", [], function ($routes) {
 	$routes->get('/', 'Home::index');
 });
+$routes->get('brands/(:num)', 'Home::brand_details/$1');
 
-$routes->get('offers/(:num)', 'Home::offers_list/$1');
+
+$routes->get('offer-url/(:num)', 'Home::offers_list/$1');
 
 //OFFERS
 /*
