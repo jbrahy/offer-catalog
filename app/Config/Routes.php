@@ -58,6 +58,7 @@ $routes->group("offers", ["filter" => "myauth"], function ($routes) {
 */
 
 
+
 //USERS
 $routes->group("users", ["filter" => "myauth"], function ($routes) {
 	$routes->get('list', 'Admin::user_list');
@@ -66,19 +67,33 @@ $routes->group("users", ["filter" => "myauth"], function ($routes) {
 	$routes->get('new', 'Admin::new_user');
 	$routes->post('saveuser/(:num)', 'Admin::update_user_submit/$1');
 	$routes->post('save-new-user', 'Admin::add_new_user_submit');
-	$routes->post('permission-option/(:num)/(:any)', 'Admin::update_permission_item/$1/$2');
+	
 
 	$routes->post('addnew', 'Offers::add_new');
 });
 
 
 //ADMIN
-$routes->group("admin", function ($routes) {
+$routes->group("admin", ["filter" => "myauth"], function ($routes) {
 	$routes->get('/', 'Admin::login');
 	$routes->get('login', 'Admin::login');
+	$routes->get('home', 'Admin::index');
 
-	$routes->get('offers/addnew', 'Offers::add_new');
+	$routes->get('offers/', 'Offers::index');
+	$routes->get('offers/add-new', 'Offers::add_new');
 	$routes->post('offers/save-new-offer', 'Offers::save_new_offer');
+
+	$routes->get('brands/', 'Brands::index');
+	$routes->get('brands/add-new', 'Brands::add_new');
+	$routes->post('brands/save-new-brand', 'Brands::save_new_brand');
+
+
+	$routes->get('offerurls/', 'OfferUrls::index');
+	$routes->get('offerurls/add-new/(:num)/(:num)', 'OfferUrls::add_new/$1/$2');
+	$routes->post('offerurls/save-new', 'OfferUrls::save_new_url');
+		
+
+
 	
 });
 

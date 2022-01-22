@@ -39,10 +39,10 @@ class Offer_Urls_Model extends Model {
 		$this->db = \Config\Database::connect();
 		// OR $this->db = db_connect();
 	}
-	
+
 	public function get_all_offer_urls()
 	{
-		//die('Mia bhai');
+		
 
 		$sql = <<<SQL
     SELECT 

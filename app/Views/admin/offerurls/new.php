@@ -3,6 +3,10 @@
 <?= $this->section("body") ?>
 
 
+
+
+    
+
     <main>
         <div class="container">
 
@@ -66,42 +70,85 @@
                 </div>
             </div> 
 
-              
             <div class="row ">
-                <div class="col-xs-12 col-sm-12 col-md-8 offset-md-2"> 
+                <div class="col-xs-12 col-sm-12 col-md-8 offset-md-2">       
 
-                    <form role="form" name="newOfferForm" id="newOfferForm"
+
+                    <form role="form" name="newOfferUrlForm" id="newOfferUrlForm"
                           action="<?php
-						  echo base_url(); ?>/admin/offers/save-new-offer" method="post"
+						  echo base_url(); ?>/admin/offerurls/save-new" method="post"
                           onsubmit="return checkFormValidation();" enctype="multipart/form-data">
 
-                           
                         <div class="form-group">
                             <label for="brand_id">Brand:</label>
                             <select class="form-select" id="brand_id" name="brand_id" required>
                                 <option value="">-- Select Brand --</option>
                                 <?php 
-                                foreach($result_brands as $r)
-                                {
+                                    if (isset($result_brands))
+                                    foreach($result_brands as $b)
+                                    {
                                 ?>
-                                <option value="<?php echo $r->brand_id;?>"><?php echo $r->brand;?></option>
+                                <option value="<?php echo $b->brand_id;?>" <?php if ( $offer_detail->brand_id == $b->brand_id ) {?>selected="selected" <?php } ?>>
+                                    <?php echo $b->brand;?>
+                                    
+                                </option>
                                 <?php 
-                                }
+                                    }
+                                ?> 
+                                
+                            </select>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="offer_id">Offer:</label>
+                            <select class="form-select" id="offer_id" name="offer_id" required>
+                                <option value="">-- Select Offer --</option>
+                                <?php 
+                                    if (isset($result_offers))
+                                    foreach($result_offers as $o)
+                                    {
                                 ?>
+                                <option value="<?php echo $o->offer_id;?>" <?php if ( $offer_detail->offer_id == $o->offer_id ) {?>selected="selected" <?php } ?>>
+                                    <?php echo $o->offer;?>
+                                    
+                                </option>
+                                <?php 
+                                    }
+                                ?> 
                                 
                             </select>
                         </div>
                     
+                        <div class="form-group">
+                            <label for="offer_url">Offer URL:</label>
+                            <input type="text" class="form-control" id="offer_url" name="offer_url">
+                        </div>
+
+                        
 
                         <div class="form-group">
-                            <label for="offer_name">Offer Name:</label>
-                            <input type="text" class="form-control" id="offer_name" name="offer_name">
+                            <label for="brand_id">URL Type:</label>
+                            <select class="form-select" id="brand_id" name="brand_id" required>
+                                <option value="">-- Select Type --</option>
+                                <?php 
+                                    if (isset($result_offer_url_types))
+                                    foreach($result_offer_url_types as $url_type)
+                                    {
+                                ?>
+                                <option value="<?php echo $url_type->offer_url_type_id;?>"><?php echo $url_type->offer_url_type;?></option>
+                                <?php 
+                                    }
+                                ?>    
+                                
+                            </select>
                         </div>
-                            
+
+
+                      
 
                         
 
-                        
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-8 offset-md-2">
                                 <div class="form-group" style="margin-top: 2em;">
@@ -116,7 +163,6 @@
                     </form>
                 </div>
             </div>
-               
         </div>
     </main>
 
@@ -130,15 +176,21 @@
         }
 
         $(document).ready(function () {
+            console.log("Here I am");
+            $('#offer_id').change(function () {
 
-            
+                console.log("Offer ID changed");
+
+                var offerId = $(this).val();
+
+            });
+
             
         });
 
        
         function checkFormValidation() {
-            
-
+            var form = document.getElementById('newOfferUrlForm');
 
             ans = true; // confirm("Sure to Add New Placement?");
             return ans;

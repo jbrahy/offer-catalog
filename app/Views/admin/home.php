@@ -68,59 +68,16 @@
 
               
             <div class="row ">
-                <div class="col-xs-12 col-sm-12 col-md-8 offset-md-2"> 
+                <div class="col-xs-12 col-sm-12 col-md-8 offset-md-2" style="height:80vh;"> 
 
-                    <form role="form" name="newOfferForm" id="newOfferForm"
-                          action="<?php
-						  echo base_url(); ?>/admin/offers/save-new-offer" method="post"
-                          onsubmit="return checkFormValidation();" enctype="multipart/form-data">
-
-                           
-                        <div class="form-group">
-                            <label for="brand_id">Brand:</label>
-                            <select class="form-select" id="brand_id" name="brand_id" required>
-                                <option value="">-- Select Brand --</option>
-                                <?php 
-                                foreach($result_brands as $r)
-                                {
-                                ?>
-                                <option value="<?php echo $r->brand_id;?>"><?php echo $r->brand;?></option>
-                                <?php 
-                                }
-                                ?>
-                                
-                            </select>
-                        </div>
                     
-
-                        <div class="form-group">
-                            <label for="offer_name">Offer Name:</label>
-                            <input type="text" class="form-control" id="offer_name" name="offer_name">
-                        </div>
-                            
-
-                        
-
-                        
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-12 col-md-8 offset-md-2">
-                                <div class="form-group" style="margin-top: 2em;">
-                                    <input type="submit" class="btn btn-success" value="Submit">
-                                    
-                                    <a href="<?php echo base_url();?>/admin/offers/" class="btn btn-primary">Back</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        
-                    </form>
                 </div>
             </div>
                
         </div>
     </main>
 
-
+    
    
     <script type="text/javascript">
 

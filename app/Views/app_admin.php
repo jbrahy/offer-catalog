@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?php
-    echo $title; ?> - Listicle Admin</title>
+    echo $title; ?> - Offer Catalog Admin</title>
     <link rel="shortcut icon" type="image/png" href="<?php
   echo base_url('favicon.ico'); ?>"/>
     <link href="data:," rel="icon">
@@ -66,8 +66,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-        <a class="navbar-brand" href="<?php
-    echo base_url(); ?>">Admin</a>
+        <a class="navbar-brand" href="<?php echo base_url(); ?>/admin/home">Admin</a>
 
         
 
@@ -79,11 +78,10 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <a class="nav-link <?php
-        if ((isset($active_menu)) && ($active_menu == "sites"))
+        if ((isset($active_menu)) && ($active_menu == "brands"))
         { ?>active <?php
         } ?>"
-                       href="<?php
-        echo base_url(); ?>/sites/">Brands</a>
+                       href="<?php echo base_url(); ?>/admin/brands/">Brands</a>
                 </li>
 
                 

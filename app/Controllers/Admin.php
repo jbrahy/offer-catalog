@@ -30,9 +30,24 @@ class Admin extends BaseController {
 
 	public function index()
 	{
+		$session = session();
+		$user_id = session()->get('user_id');
 
+		
+
+		$updatedUser = $this->users_model->find($user_id);
+		//echo '<pre>'.print_r($updatedUser, true).'</pre>';
+
+		//die('Here');
+
+
+		return view('admin/home', [
+			'active_menu'                => "",
+			'title'                      => "Welcome Admin",
+			'user_name'                  => session()->get('first_name'),
+		]);
 	}
-
+	
 	public function login()
 	{
 		return view('loginpage', [
@@ -140,16 +155,16 @@ class Admin extends BaseController {
 				$this->users_model->update($data->user_id, $updatedData);
 				*/
 
-				return redirect()->to('/home');
+				return redirect()->to('/admin/home');
 			} else
 			{
 				$session->setFlashdata('failure', 'Wrong Password');
-				return redirect()->to('/login');
+				return redirect()->to('/admin/login');
 			}
 		} else
 		{
 			$session->setFlashdata('failure', 'Email Address / User Name not Found');
-			return redirect()->to('/login');
+			return redirect()->to('/admin/login');
 		}
 	}
 
