@@ -192,6 +192,15 @@
         function checkFormValidation() {
             var form = document.getElementById('newOfferUrlForm');
 
+            offer_url =  document.getElementById('offer_url').value;
+
+            if (is_url(offer_url) == false){
+
+                alert('Bad URL Format');    
+                return false;    
+            }
+               
+
             ans = true; // confirm("Sure to Add New Placement?");
             return ans;
 

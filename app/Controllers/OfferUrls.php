@@ -161,6 +161,43 @@ class OfferUrls extends BaseController {
 
 				if ($this->offer_urls_model->save($new_url_data))	
 				{
+
+					$ciqrcode = new \App\Libraries\Ciqrcode();
+					$data = $offer_url;
+
+
+			        $hex_data   = bin2hex($data);
+			        //$save_name  = $hex_data . '.png';
+			        $save_name  = 'url-'.$this->offer_urls_model->getInsertID().'.png';
+
+			        // QR Code File Directory Initialize 
+			        $dir = './uploads/qr/';
+			        if (! file_exists($dir)) {
+			            mkdir($dir, 0775, true);
+			        }
+
+			        //die('DIE');
+
+			        //QR Configuration  
+			        $config['cacheable']    = true;
+			        $config['imagedir']     = $dir;
+			        $config['quality']      = true;
+			        $config['size']         = '512';
+			        $config['black']        = [255, 255, 255];
+			        $config['white']        = [255, 255, 255];
+			        $ciqrcode->initialize($config);
+
+
+			        // QR Data  
+			        $params['data']     = $data;
+			        $params['level']    = 'L';
+			        $params['size']     = 10;
+			        $params['savename'] = FCPATH . $config['imagedir'] . $save_name;
+
+			        $ciqrcode->generate($params);
+			        
+
+
 					$session->setFlashdata('success', 'New Offer URL has been Added.');
 					return redirect()->to('/admin/offerurls/add-new/'.$brand_id.'/'.$offer_id);
 				}else{
