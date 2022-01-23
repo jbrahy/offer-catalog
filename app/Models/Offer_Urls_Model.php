@@ -8,18 +8,18 @@ class Offer_Urls_Model extends Model {
 
 	protected $db;
 
-	protected $table              = 'offer_url_id';
-	protected $primaryKey         = 'offer_id';
+	protected $table              = 'offer_urls';
+	protected $primaryKey         = 'offer_url_id';
 
 	protected $returnType         = 'object'; //object array
 
 	protected $useSoftDeletes     = FALSE;
 	protected $allowedFields
 		= [
-			'offer_id'         ,
-			'offer_url'        ,
-			'offer_url_type_id',
-			'created_by'       ,
+			'offer_id'           ,
+			'offer_url'          ,
+			'offer_url_type_id'  ,
+			'created_by'         ,
 		];
 
 	// Dates

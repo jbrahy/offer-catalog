@@ -119,7 +119,60 @@ class OfferUrls extends BaseController {
 
 	public function save_new_url()
 	{
-		die('POST');
+		//echo '<pre>'.print_r($_POST, true).'</pre>'; die();
+
+		$session           = session();
+		$user_id           = session()->get('user_id');
+		
+		$brand_id          = $this->request->getVar('brand_id');
+		$offer_id          = $this->request->getVar('offer_id');
+		$offer_url         = $this->request->getVar('offer_url');
+		$offer_url_type_id = $this->request->getVar('offer_url_type_id');
+		
+		if ($this->request->getMethod() == "post")
+		{
+
+			$validation = \Config\Services::validation();
+			$validation->setRules([
+				"offer_id"          => "required",
+				"offer_url"         => "required",
+				"offer_url_type_id" => "required",
+			]);
+
+			$validation->withRequest($this->request)->run();
+			$errors = $validation->getErrors();
+
+			if ((isset($errors)) && (count($errors) > 0))
+			{
+
+				$session->setFlashdata("failure", "Validation Failed. Have not provided All Required Data");
+				return redirect()->to('/admin/offers/');
+			} else
+			{
+				$new_url_data = [
+							'offer_id'          => $offer_id,
+							'offer_url'         => $offer_url,
+							'offer_url_type_id' => $offer_url_type_id,
+							'created_by'        => $user_id,
+						  ];
+
+				//echo $this->offer_urls_model->
+				//echo '<pre>'.print_r($new_url_data, true).'</pre>'; die();
+
+				if ($this->offer_urls_model->save($new_url_data))	
+				{
+					$session->setFlashdata('success', 'New Offer URL has been Added.');
+					return redirect()->to('/admin/offerurls/add-new/'.$brand_id.'/'.$offer_id);
+				}else{
+					$session->setFlashdata("failure", "Could Not Add Offer URL");
+					return redirect()->to('/admin/offerurls/add-new/'.$brand_id.'/'.$offer_id);
+
+				}
+			}
+		} else {
+			$session->setFlashdata("failure", "Only Post Allowed");
+			return redirect()->to('/admin/offerurls/add-new/'.$brand_id.'/'.$offer_id);
+		}
 	}
 
 	

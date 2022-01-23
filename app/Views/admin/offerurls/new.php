@@ -128,8 +128,8 @@
                         
 
                         <div class="form-group">
-                            <label for="brand_id">URL Type:</label>
-                            <select class="form-select" id="brand_id" name="brand_id" required>
+                            <label for="offer_url_type_id">URL Type:</label>
+                            <select class="form-select" id="offer_url_type_id" name="offer_url_type_id" required>
                                 <option value="">-- Select Type --</option>
                                 <?php 
                                     if (isset($result_offer_url_types))

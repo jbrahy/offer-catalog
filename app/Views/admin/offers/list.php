@@ -70,7 +70,7 @@
                 <div class="col"> 
                 </div> 
                 <div class="col" style="text-align:right;"> 
-                        <a href="<?php echo base_url(); ?>/admin/offers/add-new" class="btn btn-success"><i class="fas fa-plus"></i> New Offer</a>
+                        <a href="<?php echo base_url(); ?>/admin/offers/add-new" class="btn btn-success"><i class="fa fa-plus"></i> New Offer</a>
                 </div> 
             </div> 
 

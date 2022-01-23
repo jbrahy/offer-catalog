@@ -28,7 +28,7 @@
 
               <div class="text-left">
                 
-                <?php echo $r->synopsis;?>
+                <p class="offer-description"><?php echo str_replace('<p>','<p class="offer-description">',$r->synopsis);?></p>
 
                 <?php
                 if ((isset($result_offers[$r->brand_id])) && (count($result_offers[$r->brand_id]) > 0))
