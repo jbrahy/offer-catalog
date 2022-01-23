@@ -26,7 +26,7 @@ class Offers  extends BaseController {
 		//parent::__construct();
 		$this->brands_model                = new Brands_Model();
 		$this->offers_model                = new Offers_Model();
-		$this->offer_urls_Model            = new Offer_Urls_Model();
+		$this->offer_urls_model            = new Offer_Urls_Model();
 		$this->offer_url_types_model       = new Offer_Url_Types_Model();
 	}
 
@@ -48,18 +48,29 @@ class Offers  extends BaseController {
 		
 
 
+		$result_offer_url  = $this->offer_urls_model->get_all_offer_urls();
+		$offers_url_list =  array();
 
-		//echo '<pre>'.print_r($offers_list, true).'</pre>';die();
+
+		if ((isset($result_offer_url)) && (count($result_offer_url) > 0))
+		foreach($result_offer_url as $offer_url)
+		{
+			$offers_url_list[$offer_url->brand_id][$offer_url->offer_id][] = $offer_url;
+		}
+
+
+		//echo '<pre>'.print_r($offers_url_list, true).'</pre>';die();
 
 		
 
-		return view('admin/offers/list', [
-			'result_brands'              => $result_brands,
-			'result_offers'                => $offers_list,
-			'active_menu'                => "offers",
-			'title'                      => "Offer(s) List",
-			'user_name'                  => session()->get('first_name'),
-			//'permission_option'          => $this->permission_option,
+		return view('admin/offers/list',   [
+			'result_brands'           => $result_brands,
+			'result_offers'           => $offers_list,
+			'result_offers_url_list'  => $offers_url_list,
+			'active_menu'             => "offers",
+			'title'                   => "Offer(s) List",
+			'user_name'               => session()->get('first_name'),
+			//'permission_option'     => $this->permission_option,
 		]);
     }
 

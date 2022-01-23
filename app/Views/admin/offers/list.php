@@ -70,7 +70,7 @@
                 <div class="col"> 
                 </div> 
                 <div class="col" style="text-align:right;"> 
-                        <a href="<?php echo base_url(); ?>/admin/offers/add-new" class="btn btn-success"><i class="fa fa-plus"></i> New Offer</a>
+                        <a href="<?php echo base_url(); ?>/admin/offers/add-new" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> New Offer</a>
                 </div> 
             </div> 
 
@@ -149,13 +149,120 @@
                                                     <a class="" href="<?php
                                                                    echo base_url(); ?>/admin/offerurls/add-new/<?php echo $o->brand_id;?>/<?php echo $o->offer_id;?>"
                                                                    title="New Offer URL" data-toggle="tooltip" style="text-decoration: none;">
-                                                                   <i class="fa fa-plus"
-                                                                            style=""></i>
+                                                                   <i class="fa fa-plus" aria-hidden="true"></i>
+                                                    </a>
+
+                                                    <a data-bs-toggle="collapse" href="#collapseOffers_<?php echo $o->offer_id;?>"> 
+                                                        <i class="fa fa-link" aria-hidden="true"></i>
                                                     </a>
                                                 </td>
                                             </tr>
+                                            <tr>
+                                                <td colspan="5" style="" class="collapse" id="collapseOffers_<?php echo $o->offer_id;?>">
+                                                    
+
+                                                    <div >
+
+                                                    <?php
+                                                    if (isset($result_offers_url_list[$b->brand_id][$o->offer_id]))
+                                                    {
+
+                                                    ?>        
+
+                                                    <div class="card" >
+                                                      <div class="card-header">
+                                                        Offer URL
+                                                      </div>
+                                                      <div class="card-body">
+                                                        
+
+                                                        <table class="table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>ID</th>
+                                                                    <th>QR</th>
+                                                                    <th>URL</th>
+                                                                    <th>Type</th>
+                                                                    <th>Option</th>
+                                                                </tr>
+                                                            </thead>
+                       
+                                                            <tbody>
+                                                   
+                                                                <?php
+                                                                foreach($result_offers_url_list[$b->brand_id][$o->offer_id] as $offers)
+                                                                {
+                                                                ?>
+                                                                <tr style="">
+                                                                    <td style="border: 0px solid #ced4da;">
+                                                                       <?php echo $offers->offer_url_id;?>
+                                                                    </td>
+                                                                    <td style="border: 0px solid #ced4da; vertical-align: top;">
+                                                                       <img src="<?php echo base_url();?>/uploads/qr/url-<?php echo $offers->offer_url_id;?>.png" width="75" class="img-fluid" alt="">
+                                                                    </td>
+                                                                    <td style="border: 0px solid #ced4da;">
+                                                                       <a href="<?php echo $offers->offer_url;?>" target="_blank"><?php echo $offers->offer_url;?></a>
+                                                                    </td>
+                                                                    <td style="border: 0px solid #ced4da;">
+                                                                       <?php echo $offers->offer_url_type;?>
+                                                                    </td>
+                                                                    
+                                                                    <td style="border: 0px solid #ced4da;">
+                                                                        <a href="<?php
+                                                                   echo base_url(); ?>/admin/offerurls/edit/<?php echo $offers->brand_id;?>/<?php echo $offers->offer_url_id;?>" target="_blank">
+                                                                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                                                        </a>
+                                                                     </td>
+                                                                </tr>
+                                                                <?php
+                                                                }
+                                                                ?>
+                                                            
+                                                            </tbody>
+                                                        </table>
+                                                        
+                                                      </div><!-- ./card-body -->
+                                                    </div><!-- ./card -->
+
+                                                    </div>
+
+                                                    <?php 
+                                                    } else {
+                                                    ?>
+                                                        <div class="card" >
+                                                          <div class="card-header">
+                                                            Offer URL
+                                                          </div>
+                                                          <div class="card-body">
+                                                                <div class="alert alert-danger" role="alert">
+                                                                    No Offer URL Posted Yet.
+                                                                     <a href="<?php
+                                                                   echo base_url(); ?>/admin/offerurls/add-new/<?php echo $b->brand_id;?>/<?php echo $o->offer_id;?>" target="_blank" class="btn btn-danger"><i class="fa fa-plus" aria-hidden="true"></i>  Add Offer URL</a>
+                                                                </div>  
+
+                                                                
+                                                          </div>
+                                                        </div>    
+                                                    <?php 
+                                                    }
+                                                    ?>
+                                                    
+                                                </td>
+                                             </tr> 
                                               <?php
                                                     }
+                                                } else {
+                                             ?>
+
+                                             <tr>
+                                                <td colspan="5" style="text-align:center;">
+                                                    <div class="alert alert-danger" role="alert">
+                                                        No Offer
+                                                    </div>    
+                                                    
+                                                </td>
+                                             </tr>   
+                                             <?php        
                                                 }
                                               ?>  
 

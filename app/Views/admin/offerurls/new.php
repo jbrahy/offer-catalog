@@ -88,7 +88,7 @@
                                     foreach($result_brands as $b)
                                     {
                                 ?>
-                                <option value="<?php echo $b->brand_id;?>" <?php if ( $offer_detail->brand_id == $b->brand_id ) {?>selected="selected" <?php } ?>>
+                                <option value="<?php echo $b->brand_id;?>" <?php if ( $brand_id == $b->brand_id ) {?>selected="selected" <?php } ?>>
                                     <?php echo $b->brand;?>
                                     
                                 </option>
@@ -109,7 +109,7 @@
                                     foreach($result_offers as $o)
                                     {
                                 ?>
-                                <option value="<?php echo $o->offer_id;?>" <?php if ( $offer_detail->offer_id == $o->offer_id ) {?>selected="selected" <?php } ?>>
+                                <option value="<?php echo $o->offer_id;?>" <?php if ( $offer_id == $o->offer_id ) {?>selected="selected" <?php } ?>>
                                     <?php echo $o->offer;?>
                                     
                                 </option>
@@ -176,12 +176,15 @@
         }
 
         $(document).ready(function () {
-            console.log("Here I am");
-            $('#offer_id').change(function () {
+            
+            $('#brand_id').change(function () {
 
                 console.log("Offer ID changed");
 
-                var offerId = $(this).val();
+                var brandId = $(this).val();
+                
+
+                window.location = '<?php echo base_url();?>/admin/offerurls/add-new/'+brandId+'/0';
 
             });
 

@@ -82,14 +82,18 @@ class OfferUrls extends BaseController {
 
 		$result_brands          = $this->brands_model->findAll();
 
-		if ($offer_id > 0)
+		if ($brand_id > 0)
 		{
 			$result_offers          = $this->offers_model->where('brand_id', $brand_id)->findAll();
-			$offer_detail           = $this->offers_model->get_offer_detail($offer_id);
-			//$result_offers          = $this->offer_urls_model->findAll();
-			//$result_offers          = $this->offer_url_types_model->findAll();
 		}else{
 			$result_offers   = array();
+		}
+
+
+		if ($offer_id > 0)
+		{
+			$offer_detail           = $this->offers_model->get_offer_detail($offer_id);
+		}else{
 			$offer_detail    = array();
 		}
 
@@ -97,14 +101,11 @@ class OfferUrls extends BaseController {
 
 		$result_offer_url_types = $this->offer_url_types_model->findAll();
 
-		
-
-		//echo '<pre>'.print_r($offer_detail, true).'</pre>'; die();
-
-
-		//echo '<pre>'.print_r($result_offer_url_types, true).'</pre>'; die();
+	
 
 		return view('admin/offerurls/new', [
+			'brand_id'                   => $brand_id,
+			'offer_id'                   => $offer_id,
 			'result_brands'              => $result_brands,
 			'result_offers'              => $result_offers,
 			'result_offer_url_types'     => $result_offer_url_types,
@@ -211,6 +212,164 @@ class OfferUrls extends BaseController {
 			return redirect()->to('/admin/offerurls/add-new/'.$brand_id.'/'.$offer_id);
 		}
 	}
+	
+	public function edit_url($brand_id, $offer_url_id)
+	{
+		$session = session();
+		//die('on Edit Screen');
+
+		$result_brands          = $this->brands_model->findAll();
+
+
+		$offer_url_data = $this->offer_urls_model->find($offer_url_id);
+
+		$result_offer_data = $this->offers_model->get_offer_detail($offer_url_data->offer_id);
+
+
+		/*
+		if ($offer_id > 0)
+		{
+			$result_offers          = $this->offers_model->where('brand_id', $brand_id)->findAll();
+			$offer_detail           = $this->offers_model->get_offer_detail($offer_id);
+		}else{
+			$result_offers   = array();
+			$offer_detail    = array();
+		}
+		*/
+		
+		$offer_detail    = array();
+
+		
+
+		if (isset($result_offer_data->brand_id))
+		{
+
+			$result_offers          = $this->offers_model->where('brand_id', $brand_id)->findAll();
+		}else {
+			$result_offers   = array();
+		}
+		//echo '<pre>'.print_r($offer_url_data, true).'</pre>'; die();
+		//echo '<pre>'.print_r($result_offers, true).'</pre>'; die();
+
+		$result_offer_url_types = $this->offer_url_types_model->findAll();
+
+
+		return view('admin/offerurls/update', [
+
+			'brand_id'                   => $brand_id,
+			'offer_id'                   => $offer_url_data->offer_id,
+			'offer_url_id'               => $offer_url_data->offer_url_id,
+			'result_brands'              => $result_brands,
+			'result_offers'              => $result_offers,
+			'result_offer_url_types'     => $result_offer_url_types,
+			'offer_detail'               => $result_offer_data,
+			'offer_url_detail'               => $offer_url_data,
+			'active_menu'                => "offers",
+			'title'                      => "Update Offer URL",
+			'user_name'                  => session()->get('first_name'),
+			//'permission_option'          => $this->permission_option,
+		]);
+	}
+	
+	public function save_update_url()
+	{
+		//echo 'Update URL';
+		//echo '<pre>'.print_r($_POST, true).'</pre>'; die();
+
+		$session           = session();
+		$user_id           = session()->get('user_id');
+		
+		$offer_url_id      = $this->request->getVar('offer_url_id');
+		$brand_id          = $this->request->getVar('brand_id');
+		$offer_id          = $this->request->getVar('offer_id');
+		$offer_url         = $this->request->getVar('offer_url');
+		$offer_url_type_id = $this->request->getVar('offer_url_type_id');
+
+		
+		if ($this->request->getMethod() == "post")
+		{
+
+			$validation = \Config\Services::validation();
+			$validation->setRules([
+				"offer_id"          => "required",
+				"offer_url"         => "required",
+				"offer_url_type_id" => "required",
+			]);
+
+			$validation->withRequest($this->request)->run();
+			$errors = $validation->getErrors();
+
+			if ((isset($errors)) && (count($errors) > 0))
+			{
+
+				$session->setFlashdata("failure", "Validation Failed. Have not provided All Required Data");
+				return redirect()->to('/admin/offerurls/edit/'.$brand_id.'/'.$offer_url_id);
+			} else
+			{
+				$update_url_data = [
+							'offer_url_id'      => $offer_url_id,
+							'offer_id'          => $offer_id,
+							'offer_url'         => $offer_url,
+							'offer_url_type_id' => $offer_url_type_id,
+							'created_by'        => $user_id,
+						  ];
+
+				
+				//echo '<pre>'.print_r($update_url_data, true).'</pre>'; die();
+                
+				if ($this->offer_urls_model->save($update_url_data))	
+				{
+
+					$ciqrcode = new \App\Libraries\Ciqrcode();
+					$data = $offer_url;
+
+
+			        $hex_data   = bin2hex($data);
+			        //$save_name  = $hex_data . '.png';
+			        $save_name  = 'url-'.$this->offer_urls_model->getInsertID().'.png';
+
+			        // QR Code File Directory Initialize 
+			        $dir = './uploads/qr/';
+			        if (! file_exists($dir)) {
+			            mkdir($dir, 0775, true);
+			        }
+
+			        @unlink($dir.$save_name);
+			        //die('DIE');
+
+			        //QR Configuration  
+			        $config['cacheable']    = true;
+			        $config['imagedir']     = $dir;
+			        $config['quality']      = true;
+			        $config['size']         = '512';
+			        $config['black']        = [255, 255, 255];
+			        $config['white']        = [255, 255, 255];
+			        $ciqrcode->initialize($config);
+
+
+			        // QR Data  
+			        $params['data']     = $data;
+			        $params['level']    = 'L';
+			        $params['size']     = 10;
+			        $params['savename'] = FCPATH . $config['imagedir'] . $save_name;
+
+			        $ciqrcode->generate($params);
+			        
+
+
+					$session->setFlashdata('success', 'Offer URL has been Updated.');
+					return redirect()->to('/admin/offerurls/edit/'.$brand_id.'/'.$offer_url_id);
+				}else{
+					$session->setFlashdata("failure", "Could Not Update Offer URL.");
+					return redirect()->to('/admin/offerurls/edit/'.$brand_id.'/'.$offer_url_id);
+
+				}
+			}
+		} else {
+			$session->setFlashdata("failure", "Only Post Allowed.");
+			return redirect()->to('/admin/offerurls/edit/'.$brand_id.'/'.$offer_url_id);
+		}
+	}	
 
 	
 }

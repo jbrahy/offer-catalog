@@ -57,7 +57,9 @@ $routes->group("offers", ["filter" => "myauth"], function ($routes) {
 });
 */
 
+/*
 
+*/
 
 //USERS
 $routes->group("users", ["filter" => "myauth"], function ($routes) {
@@ -91,7 +93,9 @@ $routes->group("admin", ["filter" => "myauth"], function ($routes) {
 	$routes->get('offerurls/', 'OfferUrls::index');
 	$routes->get('offerurls/add-new/(:num)/(:num)', 'OfferUrls::add_new/$1/$2');
 	$routes->post('offerurls/save-new', 'OfferUrls::save_new_url');
-		
+	$routes->get('offerurls/edit/(:num)/(:num)', 'OfferUrls::edit_url/$1/$2');	
+	$routes->post('offerurls/save-update', 'OfferUrls::save_update_url');
+	
 
 
 	
