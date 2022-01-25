@@ -88,7 +88,6 @@
                                 <th scope="col">ID</th>
                                 <th scope="col">Logo</th>
                                 <th scope="col">Name</th>
-                                <th scope="col">Homepage</th>
                                 <th scope="col">Option</th>
                             </tr>
                             </thead>
@@ -110,7 +109,6 @@
                                     <img src="<?php echo base_url();?>/uploads/brands/<?php echo $b->logo;?>" class="img-fluid " height="60" alt="<?php echo $b->brand;?>" />
                                 </td>
                                 <td scope="col"><?php echo $b->brand;?></td>
-                                <td scope="col"><?php echo $b->homepage;?></td>
                                 <td scope="col">
                                     
                                     <a class="edit"
