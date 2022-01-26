@@ -37,7 +37,9 @@ class Home extends BaseController {
 
 	public function index()
 	{
-		$result_brands     = $this->brands_model->findAll();
+		$result_brands     = $this->brands_model
+									->orderBy('order_id', 'asc')
+									->findAll();
 		$result_offers     = $this->offers_model->get_all_brands_offers();
 		$result_offer_url  = $this->offer_urls_model->get_all_offer_urls();
 

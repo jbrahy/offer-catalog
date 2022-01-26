@@ -42,83 +42,65 @@ $routes->get('/', 'Home::index');
 $routes->group("home", [], function ($routes) {
 	$routes->get('/', 'Home::index');
 });
-$routes->get('brands/(:num)', 'Home::brand_details/$1');
 
+$routes->get('brands/(:num)'                        , 'Home::brand_details/$1');
+$routes->get('offer-url/(:num)'                     , 'Home::offers_list/$1');
 
-$routes->get('offer-url/(:num)', 'Home::offers_list/$1');
-
-//OFFERS
-/*
-$routes->group("offers", ["filter" => "myauth"], function ($routes) {
-	$routes->get('/', 'Offers::index');
-	$routes->post('addnew', 'Offers::add_new');
-	$routes->get('update_offer_form/(:num)', 'Offers::update_offer_form/$1');
-	$routes->post('updateoffer/(:num)', 'Offers::update_offer/$1');
-});
-*/
-
-/*
-
-*/
 
 //USERS
 $routes->group("users", ["filter" => "myauth"], function ($routes) {
-	$routes->get('list', 'Admin::user_list');
-	$routes->get('add_user', 'Admin::add_new');
-	$routes->get('update/(:num)', 'Admin::update_user/$1');
-	$routes->get('new', 'Admin::new_user');
-	$routes->post('saveuser/(:num)', 'Admin::update_user_submit/$1');
-	$routes->post('save-new-user', 'Admin::add_new_user_submit');
-	
 
-	$routes->post('addnew', 'Offers::add_new');
+
+	$routes->get('list'                            , 'Admin::user_list');
+	$routes->get('add_user'                        , 'Admin::add_new');
+	$routes->get('update/(:num)'                   , 'Admin::update_user/$1');
+	$routes->get('new'                             , 'Admin::new_user');
+	$routes->post('saveuser/(:num)'                , 'Admin::update_user_submit/$1');
+	$routes->post('save-new-user'                  , 'Admin::add_new_user_submit');
+	$routes->post('addnew'                         , 'Offers::add_new');
 });
 
 
 //ADMIN
 $routes->group("admin", ["filter" => "myauth"], function ($routes) {
-	$routes->get('/', 'Admin::login');
-	$routes->get('login', 'Admin::login');
-	$routes->get('home', 'Admin::index');
-
-	$routes->get('offers/', 'Offers::index');
-	$routes->get('offers/add-new', 'Offers::add_new');
-	$routes->post('offers/save-new-offer', 'Offers::save_new_offer');
-
-	$routes->get('brands/', 'Brands::index');
-	$routes->get('brands/add-new', 'Brands::add_new');
-	$routes->post('brands/save-new-brand', 'Brands::save_new_brand');
 
 
-	$routes->get('offerurls/', 'OfferUrls::index');
-	$routes->get('offerurls/add-new/(:num)/(:num)', 'OfferUrls::add_new/$1/$2');
-	$routes->post('offerurls/save-new', 'OfferUrls::save_new_url');
-	$routes->get('offerurls/edit/(:num)/(:num)', 'OfferUrls::edit_url/$1/$2');	
-	$routes->post('offerurls/save-update', 'OfferUrls::save_update_url');
+	$routes->get('/'                               , 'Admin::login');
+	$routes->get('login'                           , 'Admin::login');
+	$routes->get('home'                            , 'Admin::index');
+
+	$routes->get('offers/'                         , 'Offers::index');
+	$routes->get('offers/add-new'                  , 'Offers::add_new');
+	$routes->post('offers/save-new-offer'          , 'Offers::save_new_offer');
+
+	$routes->get('brands/'                         , 'Brands::index');
+	$routes->get('brands/add-new'                  , 'Brands::add_new');
+	$routes->post('brands/save-new-brand'          , 'Brands::save_new_brand');
+	$routes->get('brands/edit/(:num)'              , 'Brands::edit_brand/$1');
+	$routes->post('brands/save-update'             , 'Brands::save_update_brand');
+	$routes->post('brands/delete-logo/(:num)'      , 'Brands::delete_logo/$1');
+
+	$routes->get('offerurls/'                      , 'OfferUrls::index');
+	$routes->get('offerurls/add-new/(:num)/(:num)' , 'OfferUrls::add_new/$1/$2');
+	$routes->post('offerurls/save-new'             , 'OfferUrls::save_new_url');
+	$routes->get('offerurls/edit/(:num)/(:num)'    , 'OfferUrls::edit_url/$1/$2');	
+	$routes->post('offerurls/save-update'          , 'OfferUrls::save_update_url');
 	
 
 
 	
 });
 
-//$routes->post('/update-profile-submit', 'Admin::save_password');
-
-$routes->post("update-profile-submit", "Admin::save_password");
+$routes->post("update-profile-submit"              , "Admin::save_password");
 
 
-$routes->get("login", "Admin::login");
-$routes->post("logincheck", "Admin::auth");
+$routes->get("login"                               , "Admin::login");
+$routes->post("logincheck"                         , "Admin::auth");
+
 //Logout
-$routes->get("logout", "Admin::logout");
+$routes->get("logout"                              , "Admin::logout");
 
-/*
-// Filter on route group
-$routes->group("admin", ["filter" => "myauth"] , function($routes){
 
-    $routes->get("/home", "Home::index");
-    $routes->get("/sites", "Sites::index");
-});
-*/
 
 /*
  * --------------------------------------------------------------------

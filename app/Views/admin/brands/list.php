@@ -79,7 +79,7 @@
                 <div class="col-xs-12 col-sm-12 col-md-8 offset-md-2"> 
 
                         <!-- -->
-                        <table class="table" id="myTable">
+                        <table class="table" id="myTableBrand">
                             <thead>
                             <tr>
                                 <th scope="col" width="20">
@@ -100,13 +100,22 @@
                                     foreach($result_brands as $b)  
                                     {
                               ?>
-                            <tr>
-                                <td scope="col" width="20">
-                                   
+                            <tr class="sortable" data-post-id="<?php
+                                                        echo $b->brand_id; ?>">
+                                
+                                <td scope="col" style="/*border-left: solid 4px #304d49;background: #a7d4d2; */padding: 5px;/*color: #304d49;*/margin: 0px;cursor: move;">
+                                     <i class="fas fa-align-justify"></i>
                                 </td>
                                 <td scope="col"><?php echo $b->brand_id;?></td>
                                 <td scope="col">
-                                    <img src="<?php echo base_url();?>/uploads/brands/<?php echo $b->logo;?>" class="img-fluid " height="60" alt="<?php echo $b->brand;?>" />
+                                    <?php
+                                    if ((!empty($b->logo)) && (file_exists('./uploads/brands/' . $b->logo)))
+                                    {
+                                    ?>
+                                    <img src="<?php echo base_url();?>/uploads/brands/<?php echo $b->logo;?>" class="img-fluid " style="height: 50px;" alt="<?php echo $b->brand;?>" />
+                                    <?php 
+                                    }
+                                    ?>
                                 </td>
                                 <td scope="col"><?php echo $b->brand;?></td>
                                 <td scope="col">
@@ -138,9 +147,42 @@
         </div>
     </main>
 
+    <style type="text/css">
+        #myTableBrand {
+            /*
+            padding:15;
+            border: 0;
+            width: 0;
+            margin: 0 0 0 50;
+            text-align: left;
+            */
+        }
+
+        tbody tr {
+            /*background: #ddffff;*/
+        }
+
+        .dragHandle {
+            /*background-image: url("http://akottr.github.io/img/handle.png");*/
+            /*background-repeat: repeat-x;*/
+            height: 18px;
+            margin: 0 1px;
+            cursor: move;
+        }
+
+        #myTableBrand tr.ui-state-highlight {
+            padding: 20px;
+            background-color: #eaecec;
+            border: 1px dotted #ccc;
+            cursor: move;
+            margin-top: 12px;
+        }
+    </style>
 
    
     <script type="text/javascript">
+
+        var post_order_ids = [];
 
         function is_url(str) {
             regexp = /^(?:(?:https?|ftp):\/\/)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/\S*)?$/;
@@ -149,7 +191,28 @@
 
         $(document).ready(function () {
 
-            
+            $("#myTableBrand").sortable({
+                items: "tr.sortable",
+                placeholder: "ui-state-highlight",
+
+
+                update: function (event, ui) {
+
+                    $('#myTableBrand tr.sortable').each(function () {
+                        post_order_ids.push($(this).data("post-id"));
+                        console.log("ID: " + $(this).data("post-id"));
+                    });
+
+                    /*
+                    if (post_order_ids != undefined || post_order_ids.length > 0) {
+                        console.log("Order Changed.");
+                        $("#btnSortPlacement<?php //echo $row->placement_status_id;?>").show();
+                    } else {
+                        $("#btnSortPlacement<?php //echo $row->placement_status_id;?>").hide();
+                    }
+                    */
+                }
+            });
             
         });
 

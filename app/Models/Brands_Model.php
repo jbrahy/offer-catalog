@@ -21,6 +21,7 @@ class Brands_Model extends Model {
 			'logo'       ,
 			'homepage'   ,
 			'created_by' ,
+			'order_id'   ,
 		];
 
 	// Dates

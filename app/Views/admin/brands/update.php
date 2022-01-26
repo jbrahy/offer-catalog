@@ -1,185 +1,142 @@
-<?= $this->extend("app") ?>
+<?= $this->extend("app_admin") ?>
 
 <?= $this->section("body") ?>
 
+
+
 <script src="//cdn.ckeditor.com/4.4.5.1/standard/ckeditor.js"></script>
+    
 
     <main>
         <div class="container">
+
             <div class="row">
-                <div class="col">
-                    <h1><?php
-						echo $title; ?></h1>
+                <div class="col-xs-12 col-sm-12 col-md-8 offset-md-2">
+                    &nbsp;
                 </div>
             </div>
 
-			<?php
-			if (session()->has("success"))
-			{
-				?>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="alert alert-success" role="alert">
-							<?= session("success") ?>
-                        </div>
-                    </div>
-                </div>
-				<?php
-			}
-			?>
-
-			<?php
-			if (session()->has("failure"))
-			{
-				?>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="alert alert-danger" role="alert">
-							<?= session("failure") ?>
-                        </div>
-                    </div>
-                </div>
-				<?php
-			}
-			?>
 
             <div class="row">
-                <div class="col">
-                    <form role="form" name="updatePlacementForm" id="updatePlacementForm"
+                <div class="col-xs-12 col-sm-12 col-md-8 offset-md-2">
+                    <h1><?php echo $title;?></h1>
+                </div>
+            </div>
+
+
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-8 offset-md-2">
+
+
+                    <?php
+                    if (session()->has("success"))
+                    {
+                    ?>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="alert alert-success" role="alert">
+                                    <?= session("success") ?>
+                                </div>
+                            </div>
+                        </div>
+                    <?php
+                    }
+                    ?>
+
+                    <?php
+                    if (session()->has("failure"))
+                    {
+                    ?>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="alert alert-danger" role="alert">
+                                    <?= session("failure") ?>
+                                </div>
+                            </div>
+                        </div>
+                    <?php
+                    }
+                    ?>
+
+                    <div class="alert alert-success" role="alert" style="display: none;">
+
+                    </div>
+
+                    <div class="alert alert-danger" role="alert" style="display: none;">
+
+                    </div>
+
+                </div>
+            </div> 
+
+            <div class="row ">
+                <div class="col-xs-12 col-sm-12 col-md-8 offset-md-2">       
+
+
+                    <form role="form" name="newBrandForm" id="newBrandForm"
                           action="<?php
-						  echo base_url(); ?>/placements/updateplacement/<?php
-						  echo $placementData->placement_id; ?>"
-                          method="post" onsubmit="return checkFormValidation();" enctype="multipart/form-data">
-                        <div class="form-group">
-                            <label for="placement_group_id">Placement Group:</label>
-                            <select class="form-select" id="placement_group_id" name="placement_group_id" required>
-                                <option value="">-- Select Placement Group --</option>
-								<?php
-								if ((isset($resultsPlacementGroups)) && (count($resultsPlacementGroups) > 0))
-								{
-									foreach ($resultsPlacementGroups as $resultsPlacementGroupData)
-									{
-										?>
-                                        <option value="<?php
-										echo $resultsPlacementGroupData->placement_group_id; ?>" <?php
-										if ($placementData->placement_group_id == $resultsPlacementGroupData->placement_group_id)
-										{ ?> selected="selected" <?php
-										} ?>><?php
-											echo $resultsPlacementGroupData->placement_group; ?></option>
-										<?php
-									}
-								}
-								?>
-                            </select>
-                        </div>
+                          echo base_url(); ?>/admin/brands/save-update" method="post"
+                          onsubmit="return checkFormValidation();" enctype="multipart/form-data">
 
-                         <div class="form-group">
-                                <label for="offer_id">Offer ID:</label>
-                                <input type="text" class="form-control" id="offer_id" name="offer_id" value="<?php
-                                echo $placementData->offer_id; ?>">
-                            </div>
 
-                            <div class="form-group">
-                                <label for="url">Offer URL:</label>
-                                <input type="text" class="form-control" id="url" name="offer_url"
-                                       value="<?php
-                                       echo $placementData->offer_url; ?>" required>
-                            </div>
-
+                    
 
                         <div class="form-group">
-                            <label for="headline">Headline:</label>
-                            <input type="text" class="form-control" id="headline" name="headline"
-                                   value="<?php
-								   echo $placementData->headline; ?>" required>
+                            <label for="brand_name">Brand Name:</label>
+                            <input type="text" class="form-control" id="brand_name" name="brand_name" value="<?php echo $brand_data->brand;?>" />
                         </div>
 
                         <div class="form-group">
-                            <label for="copy">Copy:</label>
-                            <textarea class="form-control" id="editor1" name="copy" rows="5"
-                                      required><?php
-								echo $placementData->copy; ?></textarea>
+                            <label for="brand_homepage">Brand Homepage URL:</label>
+                            <input type="text" class="form-control" id="brand_homepage" name="brand_homepage" value="<?php echo $brand_data->homepage;?>" />
+                        </div>
+
+                        
+
+                        <div class="form-group">
+                            <label for="brand_synopsis">Synopsis:</label>
+                            <textarea class="ckeditor form-control" id="editor1" name="brand_synopsis"  rows="5" required ><?php echo $brand_data->synopsis;?></textarea>
                         </div>
 
                         <div class="form-group">
-                            <label for="main_image">Main Image: </label>
-                            <input type="file" class="form-control" id="main_image" name="main_image">
+                            <label for="main_image">Logo:</label>
+                            <input type="file" class="form-control" id="brand_logo" name="brand_logo" <?php if (empty($brand_data->logo)){?>required<?php }?> />
 
-							<?php
-							if ( ! empty($placementData->main_image))
-							{
-							?>
+                            <?php
+                            if ( !empty($brand_data->logo))
+                            {
+                            ?>
 
 
                                 <div class="img-wraps">
                                     <span class="closes" title="Delete">×</span>
-                                    <img class="img-responsive" width="80" height="80"
+                                    <img class="img-responsive"  height="80"
                                          src="<?php
-										 echo base_url(); ?>/uploads/<?php
-										 echo $placementData->main_image; ?>">
+                                         echo base_url(); ?>/uploads/brands/<?php
+                                         echo $brand_data->logo; ?>">
                                 </div>
                                 <div style="height: 20px;"></div>
-								<?php
-							}
-							?>
-
-                           
-
-                            <div class="form-group">
-                                <label for="action_button_text">Action Button Text:</label>
-
-                                <input type="text" class="form-control" id="action_button_text" name="action_button_text" value="<?php
-                                    echo $placementData->action_button_text; ?>" 
-                                   required>
-
-                              
-                            </div>
-
-                            <?php
-                            if ((isset($permission_option->archiving_placements)) && ($permission_option->archiving_placements == 1))
-                            {
-                            ?> 
-
-                            Archiving Placement allowed
-                            <?php
+                                <?php
                             }
                             ?>
+                        </div>
+
+                        <input type="hidden" name="brand_id" id="brand_id" value="<?php echo $brand_data->brand_id;?>">
 
 
-                            <div class="form-group">
-                                <label for="placement_status_id">Placement Status:</label>
-                                <select class="form-select" id="placement_status_id" name="placement_status_id"
-                                        required>
-                                    <option value="">-- Select Status --</option>
-									<?php
-									if ((isset($resultsPlacementStatusList)) && (count($resultsPlacementStatusList) > 0))
-									{
-										foreach ($resultsPlacementStatusList as $resultsPlacementStatusData)
-										{
-                                            if ((($resultsPlacementStatusData->placement_status_id == 3) && (isset($permission_option->archiving_placements)) && ($permission_option->archiving_placements == 1)) || ($resultsPlacementStatusData->placement_status_id != 3))
-                                            {
-											?>
 
-
-                                            <option value="<?php
-											echo $resultsPlacementStatusData->placement_status_id; ?>" <?php
-											if ($placementData->placement_status_id == $resultsPlacementStatusData->placement_status_id)
-											{ ?> selected="selected" <?php
-											} ?>><?php
-												echo $resultsPlacementStatusData->placement_status; ?></option>
-											<?php
-                                            }
-										}
-									}
-									?>
-                                </select>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-8 offset-md-2">
+                                <div class="form-group" style="margin-top: 2em;">
+                                    <input type="submit" class="btn btn-success" value="Save Changes">
+                                    
+                                    <a href="<?php echo base_url();?>/admin/brands/" class="btn btn-primary">Back</a>
+                                </div>
                             </div>
+                        </div>
 
-                            <div class="form-group">
-                                <input type="submit" class="btn btn-success" value="Update">
-
-                                  <a href="<?php echo base_url();?>/placements/<?php echo $placementData->placement_group_id;?>" class="btn btn-primary">Back</a>
-                            </div>
+                        
                     </form>
                 </div>
             </div>
@@ -220,14 +177,21 @@
         }
 
     </style>
+
     <script type="text/javascript">
 
+        function is_url(str) {
+            regexp = /^(?:(?:https?|ftp):\/\/)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/\S*)?$/;
+            return regexp.test(str);
+        }
+
         $(document).ready(function () {
+            
 
-            console.log('CKeditor Load');
-
-             
-              CKEDITOR.replace( 'editor1' );
+            CKEDITOR.replaceAll( 'editor1', {
+                                                entities : false
+                                            }
+                               );
 
             CKEDITOR.config.toolbar = [
                ['FontSize'],
@@ -239,12 +203,8 @@
 
                
             ] ;
-
             CKEDITOR.config.allowedContent = true;
 
-
-           
-            
 
             $('.closes').click(function () {
 
@@ -254,8 +214,8 @@
                         //url: frm.attr('action'),
                         type: "POST",
                         dataType: "json",
-                        url: "<?php echo base_url();?>/placements/deleteimage/<?php echo $placementData->placement_id;?>",
-                        data: {'placement_id': <?php echo $placementData->placement_id;?>},
+                        url: "<?php echo base_url();?>/admin/brands/delete-logo/<?php echo $brand_data->brand_id;?>",
+                        data: {'brand_id': <?php echo $brand_data->brand_id;?>},
                         success: function (response) {
                             console.log('status:' + response.status);
                             if (response.status == "success") {
@@ -275,16 +235,22 @@
                     });
                 }
             });
+
+
+            
         });
 
+       
         function checkFormValidation() {
-            var form = document.getElementById('updatePlacementForm');
+            var form = document.getElementById('newBrandForm');
+            var frm = $('#newBrandForm');
 
 
-            var frm = $('#updatePlacementForm');
+            
 
-            ans = true; // confirm("Sure to Update This Placement?");
-            return true;
+
+            ans = true; // confirm("Sure to Add New Placement?");
+            return ans;
 
         }
 
