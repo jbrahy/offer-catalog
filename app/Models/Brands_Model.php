@@ -41,5 +41,22 @@ class Brands_Model extends Model {
 		$this->db = \Config\Database::connect();
 		// OR $this->db = db_connect();
 	}
+	
+	public function save_order($brand_id, $order_postition)
+	{
+
+		$sql = <<<SQL
+    UPDATE 
+		brands 
+	SET  
+		order_id = $order_postition 
+	WHERE 
+		brand_id = $brand_id
+	
+SQL;
+		$query = $this->db->query($sql);
+		return $this->db->affectedRows();
+
+	}
 
 }

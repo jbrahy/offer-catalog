@@ -79,6 +79,9 @@ $routes->group("admin", ["filter" => "myauth"], function ($routes) {
 	$routes->get('brands/edit/(:num)'              , 'Brands::edit_brand/$1');
 	$routes->post('brands/save-update'             , 'Brands::save_update_brand');
 	$routes->post('brands/delete-logo/(:num)'      , 'Brands::delete_logo/$1');
+	$routes->post('brands/save-order'              , 'Brands::save_order_brand');
+
+	
 
 	$routes->get('offerurls/'                      , 'OfferUrls::index');
 	$routes->get('offerurls/add-new/(:num)/(:num)' , 'OfferUrls::add_new/$1/$2');

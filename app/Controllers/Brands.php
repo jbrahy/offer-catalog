@@ -29,26 +29,30 @@ class Brands  extends BaseController {
 		$this->offer_url_types_model       = new Offer_Url_Types_Model();
 	}
 
+	// REMARK: Shows Brand List when Admin come to Brands List Page
 	public function index()
 	{
 		$session = session();
 
-		$result_brands     = $this->brands_model->findAll();
+		$result_brands  =  $this->brands_model
+									       ->orderBy('order_id', 'asc')
+									       ->findAll();
 		
 		//echo '<pre>'.print_r($result_brands, true).'</pre>';die();
 
 		
-
 		return view('admin/brands/list', [
+
 			'result_brands'              => $result_brands,
 			'active_menu'                => "brands",
 			'title'                      => "Brand(s) List",
 			'user_name'                  => session()->get('first_name'),
 			//'permission_option'          => $this->permission_option,
+
 		]);
     }
 
-
+    // REMARK: Load Add New Brand Screen
     public function add_new()
 	{
 		$session = session();
@@ -62,6 +66,9 @@ class Brands  extends BaseController {
 			//'permission_option'          => $this->permission_option,
 		]);
 	}
+
+
+	// REMARK: Save New Brand Data from Add New Brand Screen
 	public function save_new_brand()
 	{
 
@@ -85,12 +92,7 @@ class Brands  extends BaseController {
 				if ($img->isValid() && ! $img->hasMoved())
 				{
 					$logoFileName = $img->getRandomName();
-					// echo "File Name:".$uploadedFileName;
 					$img->move('./uploads/brands', $logoFileName);
-
-					// You can continue here to write a code to save the name to database
-					// db_connect() or model format
-
 				} else
 				{
 					$logoFileName = "";
@@ -113,7 +115,7 @@ class Brands  extends BaseController {
 			if ((isset($errors)) && (count($errors) > 0))
 			{
 
-				$session->setFlashdata("failure", "Validation Failed");
+				$session->setFlashdata("failure", "Validation Failed.");
 				return redirect()->to('/admin/brands/add-new');
 			} else
 			{
@@ -148,6 +150,7 @@ class Brands  extends BaseController {
 					
 	}
 	
+	// REMARK: Load Brand Edit Screen
 	public function edit_brand( $brand_id)
 	{
 		$session = session();
@@ -165,6 +168,7 @@ class Brands  extends BaseController {
 		]);
 	}
 
+	// REMARK: Save Brand Data when Admin Provides Brand Updated Data
 	public function save_update_brand()
 	{
 		//echo '<pre>'.print_r($_POST, true).'</pre>';die();
@@ -178,7 +182,6 @@ class Brands  extends BaseController {
 		$brand_synopsis    = $this->request->getVar('brand_synopsis');
 
 		$brand_exist_data = $this->brands_model->find($brand_id);
-		//echo '<pre>'.print_r($brand_exist_data, true).'</pre>';die();
 
 		
 		if ($this->request->getMethod() == "post")
@@ -252,6 +255,7 @@ class Brands  extends BaseController {
 	}
 
 	
+	// REMARK: Delete Logo From Edit Brand Screen
 	public function delete_logo()
 	{
 		$session              = session();
@@ -262,7 +266,6 @@ class Brands  extends BaseController {
 
 		$brand_data           = $this->brands_model->find($brand_id);
 
-		//echo '<pre>'.print_r($brand_data, true).'</pre>';die();
 
 		$old_image_file_name  = $brand_data->logo;
 		$brand_data->logo     = NULL;
@@ -271,7 +274,7 @@ class Brands  extends BaseController {
 		if ($this->brands_model->save($brand_data))
 		{
 			@unlink('./uploads/brands/' . $old_image_file_name);
-			$session->setFlashdata("success", "Image has been Deleted Successfully.");
+			$session->setFlashdata("success", "Logo has been Deleted Successfully.");
 
 			return $this->response->setJSON(array(
 				"status"  => "success",
@@ -279,15 +282,57 @@ class Brands  extends BaseController {
 			));
 		} else
 		{
-			$session->setFlashdata("failure", "Ooops!!,Image Could Not be Deleted.");
+			$session->setFlashdata("failure", "Ooops!!, Logo Could Not be Deleted.");
 
 			return $this->response->setJSON(array(
 				"status"  => "failure",
-				"message" => "Something went Wrong, Image Could Not be Deleted.",
+				"message" => "Something went Wrong, Logo Could Not be Deleted.",
 			));
 		}
 
 	
+	}
+
+
+	// REMARK: Save Brand Order from Admin Brands List Page when Admin Clicks Save Order
+	public function save_order_brand()
+	{
+		$session = session();
+		$post_order_ids = $this->request->getPost('post_order_ids');
+
+		
+
+		$updated_ = FALSE;
+
+		if (isset($post_order_ids)) {
+
+			$order_no = 1;
+			foreach($post_order_ids as $brand_id)
+			{
+				$isUpdated = $this->brands_model->save_order($brand_id, $order_no);
+
+				if ($isUpdated)
+				$updated_ = TRUE;
+				
+				$order_no++;
+
+			}
+		}
+
+		if ($updated_)
+		{
+			return $this->response->setJSON(array(
+				"status"  => "success",
+				"message" => "Brand Order has been Saved Successfully.",
+			));
+		} else
+		{
+			return $this->response->setJSON(array(
+				"status"  => "failure",
+				"message" => "Something went Wrong, Brand Order Could Not be Saved.",
+			));
+		}
+		
 	}
 	
 	

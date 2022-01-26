@@ -83,7 +83,7 @@
                             <thead>
                             <tr>
                                 <th scope="col" width="20">
-                                   
+                                   <input type="button"  id="btnSortBrand" class="btn btn-sm btn-success" value="Save Order">
                                 </th>
                                 <th scope="col">ID</th>
                                 <th scope="col">Logo</th>
@@ -100,8 +100,7 @@
                                     foreach($result_brands as $b)  
                                     {
                               ?>
-                            <tr class="sortable" data-post-id="<?php
-                                                        echo $b->brand_id; ?>">
+                            <tr class="sortable" data-post-id="<?php echo $b->brand_id; ?>">
                                 
                                 <td scope="col" style="/*border-left: solid 4px #304d49;background: #a7d4d2; */padding: 5px;/*color: #304d49;*/margin: 0px;cursor: move;">
                                      <i class="fas fa-align-justify"></i>
@@ -206,13 +205,46 @@
                     /*
                     if (post_order_ids != undefined || post_order_ids.length > 0) {
                         console.log("Order Changed.");
-                        $("#btnSortPlacement<?php //echo $row->placement_status_id;?>").show();
+                        $("#btnSortBrand<?php //echo $row->placement_status_id;?>").show();
                     } else {
-                        $("#btnSortPlacement<?php //echo $row->placement_status_id;?>").hide();
+                        $("#btnSortBrand<?php //echo $row->placement_status_id;?>").hide();
                     }
                     */
                 }
             });
+
+            $("#btnSortBrand").click(function () {
+
+            ans = true; // confirm("Sure to Change Placement Order?");
+            if (ans == true) {
+                $.ajax({
+                    //url: frm.attr('action'),
+                    type: "POST",
+                    //dataType: "json",
+                    url: "<?php echo base_url();?>/admin/brands/save-order",
+                    //data: frm.serialize(),
+                    data: {post_order_ids: post_order_ids},
+                    success: function (response) {
+
+                        post_order_ids = [];
+                        
+                        if (response.status == "success") {
+                            alert('Brand Order(s) has been Saved Successfully.');
+                            window.location.reload();
+                        }else if (response.status == "failure") {
+                            alert('Ooops!! Brand Order(s) could not be Saved, Sorry. Try Again.');
+
+                        }
+                        
+                    },
+                    error: function (data) {
+                        console.log('An error occurred.');
+                        console.log(data);
+                    },
+                });
+            }
+            
+        });
             
         });
 
