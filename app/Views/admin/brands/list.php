@@ -115,11 +115,9 @@
                                     
                                     <a class="edit"
                                                    href="<?php
-                                                   echo base_url(); ?>/admin/brands/update/<?php echo $b->brand_id;?>"
-                                                   title="Edit" data-toggle="tooltip"><i
-                                                            class="material-icons"
-                                                            style="color:#198754;">&#xE254;</i>
-                                                </a>
+                                                   echo base_url(); ?>/admin/brands/edit/<?php echo $b->brand_id;?>"
+                                                   title="Edit" data-toggle="tooltip"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                    </a>
                                 </td>
                             </tr>
                               <?php
