@@ -1,0 +1,88 @@
+CRITICAL - 2022-01-25 15:46:24 --> Cache unable to write to /Users/jbrahy/Projects/offer-catalog/www/writable/cache/.
+#0 /Users/jbrahy/Projects/offer-catalog/www/system/Cache/Handlers/FileHandler.php(67): CodeIgniter\Cache\Exceptions\CacheException::forUnableToWrite('/Users/jbrahy/P...')
+#1 /Users/jbrahy/Projects/offer-catalog/www/system/Cache/CacheFactory.php(54): CodeIgniter\Cache\Handlers\FileHandler->__construct(Object(Config\Cache))
+#2 /Users/jbrahy/Projects/offer-catalog/www/system/Config/Services.php(109): CodeIgniter\Cache\CacheFactory::getHandler(Object(Config\Cache))
+#3 /Users/jbrahy/Projects/offer-catalog/www/system/Config/BaseService.php(187): CodeIgniter\Config\Services::cache(Object(Config\Cache), false)
+#4 /Users/jbrahy/Projects/offer-catalog/www/system/Config/BaseService.php(352): CodeIgniter\Config\BaseService::__callStatic('cache', Array)
+#5 /Users/jbrahy/Projects/offer-catalog/www/system/Config/Services.php(104): CodeIgniter\Config\BaseService::getSharedInstance('cache', NULL)
+#6 /Users/jbrahy/Projects/offer-catalog/www/system/Config/BaseService.php(187): CodeIgniter\Config\Services::cache()
+#7 /Users/jbrahy/Projects/offer-catalog/www/system/Common.php(74): CodeIgniter\Config\BaseService::__callStatic('cache', Array)
+#8 /Users/jbrahy/Projects/offer-catalog/www/system/CodeIgniter.php(296): cache()
+#9 /Users/jbrahy/Projects/offer-catalog/www/system/CodeIgniter.php(225): CodeIgniter\CodeIgniter->displayCache(Object(Config\Cache))
+#10 /Users/jbrahy/Projects/offer-catalog/www/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#11 {main}
+CRITICAL - 2022-01-25 15:52:48 --> Cache unable to write to /Users/jbrahy/Projects/offer-catalog/www/writable/cache/.
+#0 /Users/jbrahy/Projects/offer-catalog/www/system/Cache/Handlers/FileHandler.php(67): CodeIgniter\Cache\Exceptions\CacheException::forUnableToWrite('/Users/jbrahy/P...')
+#1 /Users/jbrahy/Projects/offer-catalog/www/system/Cache/CacheFactory.php(54): CodeIgniter\Cache\Handlers\FileHandler->__construct(Object(Config\Cache))
+#2 /Users/jbrahy/Projects/offer-catalog/www/system/Config/Services.php(109): CodeIgniter\Cache\CacheFactory::getHandler(Object(Config\Cache))
+#3 /Users/jbrahy/Projects/offer-catalog/www/system/Config/BaseService.php(187): CodeIgniter\Config\Services::cache(Object(Config\Cache), false)
+#4 /Users/jbrahy/Projects/offer-catalog/www/system/Config/BaseService.php(352): CodeIgniter\Config\BaseService::__callStatic('cache', Array)
+#5 /Users/jbrahy/Projects/offer-catalog/www/system/Config/Services.php(104): CodeIgniter\Config\BaseService::getSharedInstance('cache', NULL)
+#6 /Users/jbrahy/Projects/offer-catalog/www/system/Config/BaseService.php(187): CodeIgniter\Config\Services::cache()
+#7 /Users/jbrahy/Projects/offer-catalog/www/system/Common.php(74): CodeIgniter\Config\BaseService::__callStatic('cache', Array)
+#8 /Users/jbrahy/Projects/offer-catalog/www/system/CodeIgniter.php(296): cache()
+#9 /Users/jbrahy/Projects/offer-catalog/www/system/CodeIgniter.php(225): CodeIgniter\CodeIgniter->displayCache(Object(Config\Cache))
+#10 /Users/jbrahy/Projects/offer-catalog/www/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#11 {main}
+ERROR - 2022-01-25 15:53:12 --> Error connecting to the database: php_network_getaddresses: getaddrinfo failed: nodename nor servname provided, or not known
+CRITICAL - 2022-01-25 15:53:12 --> Unable to connect to the database.
+Main connection [MySQLi]: php_network_getaddresses: getaddrinfo failed: nodename nor servname provided, or not known
+#0 /Users/jbrahy/Projects/offer-catalog/www/system/Database/BaseConnection.php(1141): CodeIgniter\Database\BaseConnection->initialize()
+#1 /Users/jbrahy/Projects/offer-catalog/www/system/Database/BaseBuilder.php(1279): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#2 /Users/jbrahy/Projects/offer-catalog/www/system/Model.php(572): CodeIgniter\Database\BaseBuilder->get()
+#3 /Users/jbrahy/Projects/offer-catalog/www/system/BaseModel.php(1035): CodeIgniter\Model->doFindAll(0, 0)
+#4 /Users/jbrahy/Projects/offer-catalog/www/app/Controllers/Home.php(40): CodeIgniter\BaseModel->findAll()
+#5 /Users/jbrahy/Projects/offer-catalog/www/system/CodeIgniter.php(979): App\Controllers\Home->index()
+#6 /Users/jbrahy/Projects/offer-catalog/www/system/CodeIgniter.php(796): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#7 /Users/jbrahy/Projects/offer-catalog/www/system/CodeIgniter.php(240): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 /Users/jbrahy/Projects/offer-catalog/www/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+ERROR - 2022-01-25 15:53:14 --> Error connecting to the database: php_network_getaddresses: getaddrinfo failed: nodename nor servname provided, or not known
+CRITICAL - 2022-01-25 15:53:14 --> Unable to connect to the database.
+Main connection [MySQLi]: php_network_getaddresses: getaddrinfo failed: nodename nor servname provided, or not known
+#0 /Users/jbrahy/Projects/offer-catalog/www/system/Database/BaseConnection.php(1141): CodeIgniter\Database\BaseConnection->initialize()
+#1 /Users/jbrahy/Projects/offer-catalog/www/system/Database/BaseBuilder.php(1279): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#2 /Users/jbrahy/Projects/offer-catalog/www/system/Model.php(572): CodeIgniter\Database\BaseBuilder->get()
+#3 /Users/jbrahy/Projects/offer-catalog/www/system/BaseModel.php(1035): CodeIgniter\Model->doFindAll(0, 0)
+#4 /Users/jbrahy/Projects/offer-catalog/www/app/Controllers/Home.php(40): CodeIgniter\BaseModel->findAll()
+#5 /Users/jbrahy/Projects/offer-catalog/www/system/CodeIgniter.php(979): App\Controllers\Home->index()
+#6 /Users/jbrahy/Projects/offer-catalog/www/system/CodeIgniter.php(796): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#7 /Users/jbrahy/Projects/offer-catalog/www/system/CodeIgniter.php(240): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 /Users/jbrahy/Projects/offer-catalog/www/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+ERROR - 2022-01-25 15:53:29 --> Unknown column 'offer_urls.offer_url_type_id' in 'on clause'
+CRITICAL - 2022-01-25 15:53:29 --> Unknown column 'offer_urls.offer_url_type_id' in 'on clause'
+#0 /Users/jbrahy/Projects/offer-catalog/www/system/Database/MySQLi/Connection.php(302): mysqli->query('    SELECT \n\t\to...')
+#1 /Users/jbrahy/Projects/offer-catalog/www/system/Database/BaseConnection.php(1248): CodeIgniter\Database\MySQLi\Connection->execute('    SELECT \n\t\to...')
+#2 /Users/jbrahy/Projects/offer-catalog/www/system/Database/BaseConnection.php(1163): CodeIgniter\Database\BaseConnection->simpleQuery('    SELECT \n\t\to...')
+#3 /Users/jbrahy/Projects/offer-catalog/www/app/Models/Offer_Urls_Model.php(63): CodeIgniter\Database\BaseConnection->query('    SELECT \n\t\to...')
+#4 /Users/jbrahy/Projects/offer-catalog/www/app/Controllers/Home.php(42): App\Models\Offer_Urls_Model->get_all_offer_urls()
+#5 /Users/jbrahy/Projects/offer-catalog/www/system/CodeIgniter.php(979): App\Controllers\Home->index()
+#6 /Users/jbrahy/Projects/offer-catalog/www/system/CodeIgniter.php(796): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#7 /Users/jbrahy/Projects/offer-catalog/www/system/CodeIgniter.php(240): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 /Users/jbrahy/Projects/offer-catalog/www/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+ERROR - 2022-01-25 15:54:23 --> Unknown column 'offer_urls.offer_id' in 'on clause'
+CRITICAL - 2022-01-25 15:54:23 --> Unknown column 'offer_urls.offer_id' in 'on clause'
+#0 /Users/jbrahy/Projects/offer-catalog/www/system/Database/MySQLi/Connection.php(302): mysqli->query('    SELECT \n\t\to...')
+#1 /Users/jbrahy/Projects/offer-catalog/www/system/Database/BaseConnection.php(1248): CodeIgniter\Database\MySQLi\Connection->execute('    SELECT \n\t\to...')
+#2 /Users/jbrahy/Projects/offer-catalog/www/system/Database/BaseConnection.php(1163): CodeIgniter\Database\BaseConnection->simpleQuery('    SELECT \n\t\to...')
+#3 /Users/jbrahy/Projects/offer-catalog/www/app/Models/Offer_Urls_Model.php(63): CodeIgniter\Database\BaseConnection->query('    SELECT \n\t\to...')
+#4 /Users/jbrahy/Projects/offer-catalog/www/app/Controllers/Home.php(42): App\Models\Offer_Urls_Model->get_all_offer_urls()
+#5 /Users/jbrahy/Projects/offer-catalog/www/system/CodeIgniter.php(979): App\Controllers\Home->index()
+#6 /Users/jbrahy/Projects/offer-catalog/www/system/CodeIgniter.php(796): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#7 /Users/jbrahy/Projects/offer-catalog/www/system/CodeIgniter.php(240): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 /Users/jbrahy/Projects/offer-catalog/www/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
+ERROR - 2022-01-25 15:57:41 --> Unknown column 'offer_urls.offer_id' in 'on clause'
+CRITICAL - 2022-01-25 15:57:41 --> Unknown column 'offer_urls.offer_id' in 'on clause'
+#0 /Users/jbrahy/Projects/offer-catalog/www/system/Database/MySQLi/Connection.php(302): mysqli->query('    SELECT \n\t\to...')
+#1 /Users/jbrahy/Projects/offer-catalog/www/system/Database/BaseConnection.php(1248): CodeIgniter\Database\MySQLi\Connection->execute('    SELECT \n\t\to...')
+#2 /Users/jbrahy/Projects/offer-catalog/www/system/Database/BaseConnection.php(1163): CodeIgniter\Database\BaseConnection->simpleQuery('    SELECT \n\t\to...')
+#3 /Users/jbrahy/Projects/offer-catalog/www/app/Models/Offer_Urls_Model.php(63): CodeIgniter\Database\BaseConnection->query('    SELECT \n\t\to...')
+#4 /Users/jbrahy/Projects/offer-catalog/www/app/Controllers/Home.php(42): App\Models\Offer_Urls_Model->get_all_offer_urls()
+#5 /Users/jbrahy/Projects/offer-catalog/www/system/CodeIgniter.php(979): App\Controllers\Home->index()
+#6 /Users/jbrahy/Projects/offer-catalog/www/system/CodeIgniter.php(796): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#7 /Users/jbrahy/Projects/offer-catalog/www/system/CodeIgniter.php(240): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 /Users/jbrahy/Projects/offer-catalog/www/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#9 {main}
