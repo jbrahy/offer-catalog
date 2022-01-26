@@ -12,11 +12,6 @@ START TRANSACTION;
 SET time_zone = "+00:00";
 
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
 --
 -- Database: `adtrust_catalog`
 --
@@ -27,14 +22,19 @@ SET time_zone = "+00:00";
 -- Table structure for table `admin_activity`
 --
 
+
+DROP TABLE IF EXISTS `admin_activity`;
 CREATE TABLE `admin_activity` (
-  `id` int(20) NOT NULL,
-  `user_id` int(11) NOT NULL,
+
+  `id`                int(20) NOT NULL,
+  `user_id`           int(11) NOT NULL,
   `admin_activity_id` bigint(20) UNSIGNED NOT NULL,
-  `email_address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `page_url` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `ip_address` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `email_address`     varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `page_url`          varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `ip_address`        varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at`        timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+
+
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -43,16 +43,20 @@ CREATE TABLE `admin_activity` (
 -- Table structure for table `brands`
 --
 
+DROP TABLE IF EXISTS `brands`;
 CREATE TABLE `brands` (
-  `brand_id` int(10) UNSIGNED NOT NULL,
-  `brand` varchar(255) DEFAULT NULL,
-  `synopsis` text,
-  `logo` varchar(255) DEFAULT NULL,
-  `homepage` varchar(255) DEFAULT NULL,
-  `created_by` int(5) NOT NULL DEFAULT '0',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  `deleted_at` timestamp NULL DEFAULT NULL
+
+  `brand_id`          int(10) UNSIGNED NOT NULL,
+  `brand`             varchar(255) DEFAULT NULL,
+  `synopsis`          text,
+  `logo`              varchar(255) DEFAULT NULL,
+  `homepage`          varchar(255) DEFAULT NULL,
+  `order_id`          int(10) DEFAULT '999999',
+  `created_by`        int(5) NOT NULL DEFAULT '0',
+  `created_at`        timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at`        timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `deleted_at`        timestamp NULL DEFAULT NULL
+
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -61,14 +65,17 @@ CREATE TABLE `brands` (
 -- Table structure for table `offers`
 --
 
+DROP TABLE IF EXISTS `offers`;
 CREATE TABLE `offers` (
-  `offer_id` int(10) UNSIGNED NOT NULL,
-  `brand_id` int(10) NOT NULL,
-  `offer` varchar(255) DEFAULT NULL,
-  `created_by` int(10) NOT NULL DEFAULT '0',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  `deleted_at` timestamp NULL DEFAULT NULL
+
+  `offer_id`          int(10) UNSIGNED NOT NULL,
+  `brand_id`          int(10) NOT NULL,
+  `offer`             varchar(255) DEFAULT NULL,
+  `created_by`        int(10) NOT NULL DEFAULT '0',
+  `created_at`        timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at`        timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `deleted_at`        timestamp NULL DEFAULT NULL
+
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -77,15 +84,18 @@ CREATE TABLE `offers` (
 -- Table structure for table `offer_urls`
 --
 
+DROP TABLE IF EXISTS `offer_urls`;
 CREATE TABLE `offer_urls` (
-  `offer_url_id` int(10) UNSIGNED NOT NULL,
-  `offer_id` int(10) DEFAULT NULL,
-  `offer_url` varchar(255) DEFAULT NULL,
+
+  `offer_url_id`      int(10) UNSIGNED NOT NULL,
+  `offer_id`          int(10) DEFAULT NULL,
+  `offer_url`         varchar(255) DEFAULT NULL,
   `offer_url_type_id` int(10) DEFAULT '0',
-  `created_by` int(10) NOT NULL DEFAULT '0',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  `deleted_at` timestamp NULL DEFAULT NULL
+  `created_by`        int(10) NOT NULL DEFAULT '0',
+  `created_at`        timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at`        timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `deleted_at`        timestamp NULL DEFAULT NULL
+
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -94,9 +104,12 @@ CREATE TABLE `offer_urls` (
 -- Table structure for table `offer_url_types`
 --
 
+DROP TABLE IF EXISTS `offer_url_types`;
 CREATE TABLE `offer_url_types` (
+
   `offer_url_type_id` int(10) UNSIGNED NOT NULL,
-  `offer_url_type` varchar(255) DEFAULT NULL
+  `offer_url_type`    varchar(255) DEFAULT NULL
+
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -105,16 +118,21 @@ CREATE TABLE `offer_url_types` (
 -- Table structure for table `users`
 --
 
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
-  `user_id` int(10) UNSIGNED NOT NULL,
-  `first_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `last_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `email_address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `last_login_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `last_login_ip` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+
+
+  `user_id`            int(10) UNSIGNED NOT NULL,
+  `first_name`         varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `last_name`          varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email_address`      varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `username`           varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `password`           varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `last_login_at`      timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `last_login_ip`      varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `created_at`         timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+
+
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -131,26 +149,30 @@ INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `email_address`, `use
 -- Table structure for table `user_permissions`
 --
 
+DROP TABLE IF EXISTS `user_permissions`;
 CREATE TABLE `user_permissions` (
-  `user_permission_id` int(20) NOT NULL,
-  `user_id` int(10) UNSIGNED NOT NULL,
-  `adding_placements` tinyint(1) NOT NULL DEFAULT '0',
-  `updating_placements` tinyint(1) DEFAULT '0',
-  `sorting_placements` tinyint(1) NOT NULL DEFAULT '0',
-  `archiving_placements` tinyint(1) NOT NULL DEFAULT '0',
-  `adding_placement_groups` tinyint(1) NOT NULL DEFAULT '0',
-  `updating_placement_groups` tinyint(1) DEFAULT '0',
-  `deleting_placements` tinyint(1) NOT NULL DEFAULT '0',
-  `deleting_placement_groups` tinyint(1) NOT NULL DEFAULT '0',
-  `managing_users` tinyint(1) NOT NULL DEFAULT '0',
-  `managing_ssh_keys` tinyint(1) NOT NULL DEFAULT '0',
-  `vertical_enabled` tinyint(1) DEFAULT '0',
-  `reporting_enabled` tinyint(1) DEFAULT '0',
-  `updating_admin_from_github` tinyint(1) NOT NULL DEFAULT '0',
-  `updating_app_from_github` tinyint(1) NOT NULL DEFAULT '0',
+
+  `user_permission_id`                 int(20) NOT NULL,
+  `user_id`                            int(10) UNSIGNED NOT NULL,
+  `adding_placements`                  tinyint(1) NOT NULL DEFAULT '0',
+  `updating_placements`                tinyint(1) DEFAULT '0',
+  `sorting_placements`                 tinyint(1) NOT NULL DEFAULT '0',
+  `archiving_placements`               tinyint(1) NOT NULL DEFAULT '0',
+  `adding_placement_groups`            tinyint(1) NOT NULL DEFAULT '0',
+  `updating_placement_groups`          tinyint(1) DEFAULT '0',
+  `deleting_placements`                tinyint(1) NOT NULL DEFAULT '0',
+  `deleting_placement_groups`          tinyint(1) NOT NULL DEFAULT '0',
+  `managing_users`                     tinyint(1) NOT NULL DEFAULT '0',
+  `managing_ssh_keys`                  tinyint(1) NOT NULL DEFAULT '0',
+  `vertical_enabled`                   tinyint(1) DEFAULT '0',
+  `reporting_enabled`                  tinyint(1) DEFAULT '0',
+  `updating_admin_from_github`         tinyint(1) NOT NULL DEFAULT '0',
+  `updating_app_from_github`           tinyint(1) NOT NULL DEFAULT '0',
   `updating_web_templates_from_github` tinyint(1) NOT NULL DEFAULT '0',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
+  `created_at`                         timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at`                         timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
+
+
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -199,9 +221,6 @@ ALTER TABLE `users`
 ALTER TABLE `user_permissions`
   ADD PRIMARY KEY (`user_permission_id`);
 
---
--- AUTO_INCREMENT for dumped tables
---
 
 --
 -- AUTO_INCREMENT for table `admin_activity`
@@ -245,7 +264,3 @@ ALTER TABLE `users`
 ALTER TABLE `user_permissions`
   MODIFY `user_permission_id` int(20) NOT NULL AUTO_INCREMENT;
 COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
