@@ -72,6 +72,8 @@ $routes->group("admin", ["filter" => "myauth"], function ($routes) {
 	$routes->get('offers/'                         , 'Offers::index');
 	$routes->get('offers/add-new'                  , 'Offers::add_new');
 	$routes->post('offers/save-new-offer'          , 'Offers::save_new_offer');
+	$routes->get('offers/edit/(:num)'              , 'Offers::edit_offer/$1');	
+	$routes->post('offers/save-update'             , 'Offers::save_update_offer');
 
 	$routes->get('brands/'                         , 'Brands::index');
 	$routes->get('brands/add-new'                  , 'Brands::add_new');

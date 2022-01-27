@@ -60,7 +60,7 @@
                                    <?php echo $r->offer_url_id;?>
                                 </td>
                                 <td style="border: 0px solid #ced4da; vertical-align: top;">
-                                   <img  src="<?php echo base_url();?>/uploads/qr/qr-<?php echo $r->offer_url_id;?>.png" width="75" class="img-fluid" alt="" />
+                                   <img  src="<?php echo base_url();?>/uploads/qr/url-<?php echo $r->offer_url_id;?>.png" width="75" class="img-fluid" alt="" />
                                 </td>
                                 <td style="border: 0px solid #ced4da;">
                                    <a href="<?php echo $r->offer_url;?>" target="_blank"><?php echo $r->offer_url;?></a>

@@ -30,6 +30,7 @@ class Offers  extends BaseController {
 		$this->offer_url_types_model       = new Offer_Url_Types_Model();
 	}
 
+	// REMARK - Shows all Offer List to Admin
 	public function index()
 	{
 		$session = session();
@@ -59,9 +60,6 @@ class Offers  extends BaseController {
 		}
 
 
-		//echo '<pre>'.print_r($offers_url_list, true).'</pre>';die();
-
-		
 
 		return view('admin/offers/list',   [
 			'result_brands'           => $result_brands,
@@ -75,14 +73,12 @@ class Offers  extends BaseController {
     }
 
 
+    // REMARK - New Offer Screen
     public function add_new()
 	{
 		$session = session();
 
 		$result_brands          = $this->brands_model->findAll();
-		//$result_offer_url_types = $this->offer_url_types_model->findAll();
-
-		//echo '<pre>'.print_r($result_offer_url_types, true).'</pre>'; die();
 
 		return view('admin/offers/new', [
 			'result_brands'              => $result_brands,
@@ -93,6 +89,7 @@ class Offers  extends BaseController {
 		]);
 	}
 
+	// REMARK - Save New Offer from New Offer Screen
 	public function save_new_offer()
 	{
 		$session        = session();
@@ -138,12 +135,84 @@ class Offers  extends BaseController {
 				}
 			}
 		} else {
-			$session->setFlashdata("failure", "Only Post Allowed");
+			$session->setFlashdata("failure", "Only Post Submit Allowed.");
 			return redirect()->to('/admin/offers/add-new');
 		}
 
 		
 		
 					
+	}
+	
+	// REMARK - Edit Offer Screen
+	public function edit_offer($offer_id)
+	{
+		$session = session();
+
+		$offer_data         = $this->offers_model->find($offer_id);
+		$result_brands      = $this->brands_model->findAll();
+
+
+		return view('admin/offers/update', [
+			'result_brands'              => $result_brands,
+			'offer_data'                 => $offer_data,
+			'active_menu'                => "offers",
+			'title'                      => "Update Offer",
+			'user_name'                  => session()->get('first_name'),
+			//'permission_option'        => $this->permission_option,
+		]);
+	}
+
+	// REMARK - Save the Updates of Offer from Edit Offer Screen
+	public function save_update_offer()
+	{
+		
+		$session        = session();
+		$user_id        = session()->get('user_id');
+		
+		$offer_id       = $this->request->getVar('offer_id');
+		$brand_id       = $this->request->getVar('brand_id');
+		$offer_name     = $this->request->getVar('offer_name');
+		
+		if ($this->request->getMethod() == "post")
+		{
+			$validation = \Config\Services::validation();
+			$validation->setRules([
+				"offer_id"     => "required",
+				"brand_id"     => "required",
+				"offer_name"   => "required",
+			]);
+
+			$validation->withRequest($this->request)->run();
+			$errors = $validation->getErrors();
+
+			if ((isset($errors)) && (count($errors) > 0))
+			{
+
+				$session->setFlashdata("failure", "Validation Failed.");
+				return redirect()->to('/admin/offers/edit/'.$offer_id);
+			} else
+			{
+				$exist_offer_data = [
+							'offer_id'    => $offer_id,
+							'brand_id'    => $brand_id,
+							'offer'       => $offer_name,
+						  ];
+
+			
+				if ($this->offers_model->save($exist_offer_data))	
+				{
+					$session->setFlashdata('success', 'Offer has been Updated.');
+					return redirect()->to('/admin/offers');
+				}else{
+					$session->setFlashdata("failure", "Could Not Update Offer.");
+					return redirect()->to('/admin/offers/edit/'.$offer_id);
+
+				}
+			}
+		} else {
+			$session->setFlashdata("failure", "Only Post Submit Allowed.");
+			return redirect()->to('/admin/offers/edit/'.$offer_id);
+		}
 	}
 }

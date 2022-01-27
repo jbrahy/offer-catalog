@@ -142,22 +142,23 @@
 
                                                     <a class="edit"
                                                        href="<?php
-													   echo base_url(); ?>/admin/offers/update/<?php echo $offer->offer_id; ?>"
-                                                       title="Edit" data-toggle="tooltip"><i
-                                                                class="material-icons"
-                                                                style="color:#198754;">&#xE254;</i>
+													   echo base_url(); ?>/admin/offers/edit/<?php echo $offer->offer_id; ?>"
+                                                       title="Edit" data-toggle="tooltip"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                     </a>
-
                                                     <a class="" href="<?php
 													echo base_url(); ?>/admin/offerurls/add-new/<?php echo $offer->brand_id; ?>/<?php echo $offer->offer_id; ?>"
                                                        title="New Offer URL" data-toggle="tooltip"
-                                                       style="text-decoration: none;"><i class="fa fa-plus"
-                                                                                         aria-hidden="true"></i></a>
+                                                       style="text-decoration: none;"><i class="fa fa-plus" aria-hidden="true"></i></a>
 
                                                     <a data-bs-toggle="collapse"
                                                        href="#collapseOffers_<?php echo $offer->offer_id; ?>">
-                                                        <i class="fa fa-link" aria-hidden="true"></i>
+                                                        <i class="fa fa-list" aria-hidden="true"></i>
                                                     </a>
+                                                    <a class="" href="<?php
+                                                    echo base_url(); ?>/admin/offerurls/add-new/<?php echo $offer->brand_id; ?>/<?php echo $offer->offer_id; ?>"
+                                                       title="New Offer URL" data-toggle="tooltip"
+                                                       style="text-decoration: none;"><i class="fa fa-qrcode" aria-hidden="true"></i></a>
+
                                                 </td>
                                             </tr>
                                             <tr>
