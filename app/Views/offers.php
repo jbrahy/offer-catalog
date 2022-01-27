@@ -73,6 +73,11 @@
                                    <?php echo $r->created_at;?>
                                 </td>
                             </tr>
+                            <tr>
+                                <td colspan="5" style="height: 30px;">
+                                  <hr/>
+                                </td>
+                            </tr>  
                         <?php
                             }
                         ?>

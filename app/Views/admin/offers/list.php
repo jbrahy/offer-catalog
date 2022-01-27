@@ -154,9 +154,8 @@
                                                        href="#collapseOffers_<?php echo $offer->offer_id; ?>">
                                                         <i class="fa fa-list" aria-hidden="true"></i>
                                                     </a>
-                                                    <a class="" href="<?php
-                                                    echo base_url(); ?>/admin/offerurls/add-new/<?php echo $offer->brand_id; ?>/<?php echo $offer->offer_id; ?>"
-                                                       title="New Offer URL" data-toggle="tooltip"
+                                                    <a class="" href="javascript:shareit(<?php echo $offer->offer_id; ?>,'<?php echo $offer->offer; ?>');"
+                                                       title="Share Offer URL" data-toggle="tooltip"
                                                        style="text-decoration: none;"><i class="fa fa-qrcode" aria-hidden="true"></i></a>
 
                                                 </td>
@@ -301,12 +300,31 @@
             </div>
 
         </div>
+ 
+        <div id="offer_modal" class="modal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div> <!-- ./modal -->
+
+
     </main>
 
 
     <script type="text/javascript">
 
-        function is_url(str) {
+        function is_url (str) {
             regexp = /^(?:(?:https?|ftp):\/\/)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/\S*)?$/;
             return regexp.test(str);
         }
@@ -316,8 +334,17 @@
 
         });
 
+        function shareit (offer_id, offer_name) {
+            //alert(offer_id);
 
-        function checkFormValidation() {
+            $('.modal-title').html('Offer :: ' + offer_name);
+            $('.modal-body').html('<?php echo base_url();?>/offer-url/' + offer_id);
+
+            $('#offer_modal').modal('show');
+        }
+
+
+        function checkFormValidation () {
 
 
             ans = true; // confirm("Sure to Add New Placement?");
