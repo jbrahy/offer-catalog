@@ -1,19 +1,25 @@
-<?= $this->extend("app") ?>
+<?= $this->extend("app_admin") ?>
 
 <?= $this->section("body") ?>
     <link rel="stylesheet" type="text/css" href="<?php
 	echo base_url('assets/css/dragtable.css'); ?>   "/>
     <main>
         <div class="container">
+
             <div class="row">
-                <div class="col">
-                    <h1><?php
-						echo $title; ?></h1>
+                <div class="col-xs-12 col-sm-12 col-md-8 offset-md-2">
+                    &nbsp;
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-sm-12">
+                <div class="col-xs-12 col-sm-12 col-md-8 offset-md-2">
+                    <h1><?php echo $title; ?></h1>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-8 offset-md-2">
                     
                 </div>
             </div>
@@ -25,7 +31,7 @@
 			{
 				?>
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-xs-12 col-sm-12 col-md-8 offset-md-2">
                         <div class="alert alert-success" role="alert">
 							<?= session("success") ?>
                         </div>
@@ -40,7 +46,7 @@
 			{
 				?>
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-xs-12 col-sm-12 col-md-8 offset-md-2">
                         <div class="alert alert-danger" role="alert">
 							<?= session("failure") ?>
                         </div>
@@ -51,11 +57,18 @@
 			?>
 
 			
-
             <div class="row">
-                <div class="col">
+               <div class="col-xs-6 col-sm-6 col-md-4 offset-md-2">
+               </div>
 
-                        <a href="<?php echo base_url(); ?>/users/new" class="btn btn-primary"><i class="fas fa-plus"></i> New User</a>
+               <div class="col-xs-6 col-sm-6 col-md-4 offset-md-2">
+                    <a href="<?php echo base_url(); ?>/admin/users/new" class="btn btn-primary"><i class="fas fa-user" aria-hidden="true"></i> New User</a>
+               </div>
+            </div>    
+            <div class="row">
+               <div class="col-xs-12 col-sm-12 col-md-8 offset-md-2">
+
+                       
 
                         <table class="table" id="myTable1">
                             <thead>
@@ -89,7 +102,7 @@
                                     <td ><?php echo $row->username;?></td>
                                     <!--td ><?php echo $row->password;?></td-->
                                     <td>
-                                        <a class="edit" href="<?php echo base_url(); ?>/users/update/<?php echo $row->user_id; ?>" title="Edit" data-toggle="tooltip"><i class="material-icons" style="color:#198754;">&#xE254;</i></a>
+                                        <a class="edit" href="<?php echo base_url(); ?>/admin/users/edit/<?php echo $row->user_id; ?>" title="Edit" data-toggle="tooltip"><i class="material-icons" style="color:#198754;">&#xE254;</i></a>
                                     </td>
                                 </tr>
 

@@ -1,13 +1,19 @@
-<?= $this->extend("app") ?>
+<?= $this->extend("app_admin") ?>
 
 <?= $this->section("body") ?>
 
     <main>
         <div class="container">
+
             <div class="row">
-                <div class="col">
-                    <h1><?php
-						echo $title; ?></h1>
+                <div class="col-xs-12 col-sm-12 col-md-8 offset-md-2">
+                    &nbsp;
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-8 offset-md-2">      
+                    <h1><?php echo $title; ?></h1>
                 </div>
             </div>
 
@@ -16,7 +22,7 @@
 			{
 				?>
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-xs-12 col-sm-12 col-md-8 offset-md-2">
                         <div class="alert alert-success" role="alert">
 							<?= session("success") ?>
                         </div>
@@ -31,7 +37,7 @@
 			{
 				?>
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-xs-12 col-sm-12 col-md-8 offset-md-2">
                         <div class="alert alert-danger" role="alert">
 							<?= session("failure") ?>
                         </div>
@@ -42,7 +48,7 @@
 			?>
 
             <div class="row">
-                <div class="col-12">
+                <div class="col-xs-12 col-sm-12 col-md-8 offset-md-2">
                     <div class="alert alert-danger" role="alert" style="display: none;">
 
                     </div>
@@ -53,11 +59,14 @@
                 </div>
             </div>
 
+
+            
+
             <div class="row">
-                <div class="col">
+                <div class="col-xs-12 col-sm-12 col-md-8 offset-md-2">       
                     <form role="form" name="updateProfileForm" id="updateProfileForm"
                           action="<?php
-						  echo base_url(); ?>/update-profile-submit"
+						  echo base_url(); ?>/admin/save-update-profile"
                           method="post" onsubmit="return checkFormValidation();">
                         <div class="form-group">
                             <label for="site">First Name:</label>

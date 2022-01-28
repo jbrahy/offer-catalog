@@ -97,7 +97,15 @@
                 </li>
 
 
-                
+                 <li class="nav-item">
+                    <a class="nav-link <?php
+                    if ((isset($active_menu)) && ($active_menu == "user_management"))
+                    { ?>active <?php
+                    } ?>"
+                       href="<?php
+                       echo base_url(); ?>/admin/users/list/">User Management</a>
+                </li>
+
 
                 <li class="nav-item">
                     <a class="nav-link <?php
@@ -105,7 +113,7 @@
                     { ?>active <?php
                     } ?>"
                        href="<?php
-                       echo base_url(); ?>/update-profile/">Change Password</a>
+                       echo base_url(); ?>/admin/update-profile/">Change Password</a>
                 </li>
 
                

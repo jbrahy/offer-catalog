@@ -47,19 +47,6 @@ $routes->get('brands/(:num)'                        , 'Home::brand_details/$1');
 $routes->get('offer-url/(:num)'                     , 'Home::offers_list/$1');
 
 
-//USERS
-$routes->group("users", ["filter" => "myauth"], function ($routes) {
-
-
-	$routes->get('list'                            , 'Admin::user_list');
-	$routes->get('add_user'                        , 'Admin::add_new');
-	$routes->get('update/(:num)'                   , 'Admin::update_user/$1');
-	$routes->get('new'                             , 'Admin::new_user');
-	$routes->post('saveuser/(:num)'                , 'Admin::update_user_submit/$1');
-	$routes->post('save-new-user'                  , 'Admin::add_new_user_submit');
-	$routes->post('addnew'                         , 'Offers::add_new');
-});
-
 
 //ADMIN
 $routes->group("admin", ["filter" => "myauth"], function ($routes) {
@@ -90,13 +77,24 @@ $routes->group("admin", ["filter" => "myauth"], function ($routes) {
 	$routes->post('offerurls/save-new'             , 'OfferUrls::save_new_url');
 	$routes->get('offerurls/edit/(:num)/(:num)'    , 'OfferUrls::edit_url/$1/$2');	
 	$routes->post('offerurls/save-update'          , 'OfferUrls::save_update_url');
+
+
+	$routes->get('update-profile'                  , 'Admin::edit_profile');
+	$routes->post('save-update-profile'            , 'Admin::save_profile');
+
 	
+	$routes->get('users/list'                      , 'Admin::user_list');
+	$routes->get('users/new'                       , 'Admin::new_user');
+	$routes->post('users/save-new-user'            , 'Admin::add_new_user_submit');
 
-
+	$routes->get('users/edit/(:num)'               , 'Admin::edit_user/$1');
+	$routes->post('users/save-user-update/(:num)'  , 'Admin::update_user_submit/$1');
+	
+	
 	
 });
 
-$routes->post("update-profile-submit"              , "Admin::save_password");
+
 
 
 $routes->get("login"                               , "Admin::login");

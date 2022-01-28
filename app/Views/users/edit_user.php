@@ -16,39 +16,39 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-8 offset-md-2">
                     <h1><?php
-						echo $title; ?></h1>
+                        echo $title; ?></h1>
                 </div>
             </div>
 
-			<?php
-			if (session()->has("success"))
-			{
-				?>
+            <?php
+            if (session()->has("success"))
+            {
+                ?>
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-8 offset-md-2">
                         <div class="alert alert-success" role="alert">
-							<?= session("success") ?>
+                            <?= session("success") ?>
                         </div>
                     </div>
                 </div>
-				<?php
-			}
-			?>
+                <?php
+            }
+            ?>
 
-			<?php
-			if (session()->has("failure"))
-			{
-				?>
+            <?php
+            if (session()->has("failure"))
+            {
+                ?>
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-8 offset-md-2">
                         <div class="alert alert-danger" role="alert">
-							<?= session("failure") ?>
+                            <?= session("failure") ?>
                         </div>
                     </div>
                 </div>
-				<?php
-			}
-			?>
+                <?php
+            }
+            ?>
 
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-8 offset-md-2">
@@ -67,42 +67,42 @@
                     
                     
 
-                    <form role="form" name="saveUserProfileForm" id="saveUserProfileForm"  action="<?php
-                          echo base_url(); ?>/admin/users/save-new-user" method="post" onsubmit="return checkFormValidation();">
+                    <form role="form" name="updateProfileForm" id="updateProfileForm"  action="<?php
+                          echo base_url(); ?>/admin/users/save-user-update/<?php echo $user_profile->user_id; ?>" method="post" onsubmit="return checkFormValidation();">
 
                         <div class="form-group">
                             <label for="site">First Name:</label>
                             <input type="text" class="form-control" id="first_name" name="first_name"
-                                   placeholder="" value="" required>
+                                   placeholder="" value="<?php echo $user_profile->first_name; ?>" required />
                         </div>
 
                         <div class="form-group">
                             <label for="token">Last Name:</label>
-                            <input type="text" class="form-control" id="last_name" name="last_name" placeholder="" value="" required>
+                            <input type="text" class="form-control" id="last_name" name="last_name" placeholder="" value="<?php echo $user_profile->last_name; ?>" required />
                         </div>
 
                         <div class="form-group">
                             <label for="token">Email Address:</label>
-                            <input type="text" class="form-control" id="email_address" name="email_address" placeholder="" value="" >
+                            <input type="text" class="form-control" id="email_address" name="email_address" placeholder="" value="<?php echo $user_profile->email_address; ?>" />
                         </div>
 
 
                         <div class="form-group">
                             <label for="token">Username:</label>
-                            <input type="text" class="form-control" id="username" name="username" placeholder=""
-                                   value="" required>
+                            <input type="text" class="form-control" id="username" name="username" placeholder="" value="<?php echo $user_profile->username; ?>" required />
                         </div>
 
                         
 
                         <div class="form-group">
-                            <label for="current_password">Password:</label>
-                             <input type="text" class="form-control" id="current_password" name="current_password" placeholder="" value="" >
+                            <label for="current_password">New Password: &nbsp;&nbsp;&nbsp;&nbsp;(Provide Only If You Want to Reset with New Password)</label>
+                             <input type="text" class="form-control" id="new_password" name="new_password" placeholder="" value="" />
                         </div>
 
 
+
                         <div class="form-group">
-                            <input type="submit" class="btn btn-success" value="Save User">
+                            <input type="submit" class="btn btn-success" value="Update User">
                         </div>
                     </form>
                                             
@@ -133,16 +133,16 @@
 
 
         function checkFormValidation() {
-            var form = document.getElementById('saveUserProfileForm');
-            var frm = $('#saveUserProfileForm');
+            var form = document.getElementById('updateProfileForm');
+            var frm = $('#updateProfileForm');
 
-            var username          = document.getElementById("username").value;
-            var current_password  = document.getElementById("current_password").value;
+            var username         = document.getElementById("username").value;
+            var new_password     = document.getElementById("new_password").value;
            
 
             if(username.length < 5)
             {
-                alert('Minimum 5 Characters are Required');
+                alert('Username must be Minimum 5 Characters.');
                 return false;
             }
 
@@ -152,17 +152,17 @@
             }
             */
 
-            if (current_password === ""){
-                alert('Please Provide Current Password.');
-                document.getElementById("current_password").focus();
-                return false;
+            if (new_password !== ""){
+
+              if (new_password.length < 5){
+                   alert('For Password, Minimum 5 Characters are Required.');
+                   document.getElementById("new_password").focus();
+                   return false;
+              }
+                     
             }
-
-         
-
             
             return true;
-            
 
         }
 
