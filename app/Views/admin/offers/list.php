@@ -143,20 +143,20 @@
                                                     <a class="edit"
                                                        href="<?php
 													   echo base_url(); ?>/admin/offers/edit/<?php echo $offer->offer_id; ?>"
-                                                       title="Edit" data-toggle="tooltip"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                                       title="Edit" data-toggle="tooltip" style="text-decoration: none !important;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                     </a>
                                                     <a class="" href="<?php
 													echo base_url(); ?>/admin/offerurls/add-new/<?php echo $offer->brand_id; ?>/<?php echo $offer->offer_id; ?>"
                                                        title="New Offer URL" data-toggle="tooltip"
-                                                       style="text-decoration: none;"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                                                       style="text-decoration: none !important;"><i class="fa fa-plus" aria-hidden="true"></i></a>
 
                                                     <a data-bs-toggle="collapse"
-                                                       href="#collapseOffers_<?php echo $offer->offer_id; ?>">
+                                                       href="#collapseOffers_<?php echo $offer->offer_id; ?>" style="text-decoration: none !important;">
                                                         <i class="fa fa-list" aria-hidden="true"></i>
                                                     </a>
                                                     <a class="" href="javascript:shareit(<?php echo $offer->offer_id; ?>,'<?php echo $offer->offer; ?>');"
-                                                       title="Share Offer URL" data-toggle="tooltip"
-                                                       style="text-decoration: none;"><i class="fa fa-qrcode" aria-hidden="true"></i></a>
+                                                       title="Share Offer URL" data-toggle="tooltip" 
+                                                       style="text-decoration: none !important;"><i class="fa fa-qrcode" aria-hidden="true"></i></a>
 
                                                 </td>
                                             </tr>
@@ -305,7 +305,7 @@
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
+                <h5 class="modal-title">Title</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
