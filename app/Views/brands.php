@@ -64,22 +64,22 @@
                         ?>
 
                         <li>
-                            <a data-bs-toggle="collapse" href="#collapseExample_<?php echo $offers->offer_id;?>"> <?php echo $offers->offer;?></a>
+                            <a data-bs-toggle="collapse" href="#collapseOffer_<?php echo $offers->offer_id;?>"> <?php echo $offers->offer;?></a>
 
                             <?php
                             if ((isset($result_offer_url[$r->brand_id][$offers->offer_id])) && (count($result_offer_url[$r->brand_id][$offers->offer_id]) > 0))
                             {
 
                           ?>
-                            <div class="collapse" id="collapseExample_<?php echo $offers->offer_id;?>">
+                            <div class="collapse" id="collapseOffer_<?php echo $offers->offer_id;?>">
                              <ul>
                                <?php
                                 foreach($result_offer_url[$r->brand_id][$offers->offer_id] as $url)
                                 {
                                ?>
                                 <li>
-                                  <?php echo $url->offer_url_type;?>: 
-                                  <a href="<?php echo $url->offer_url;?>" target="_blank"><?php echo $url->offer_url;?></a>
+                                  
+                                  <a href="<?php echo $url->offer_url;?>" target="_blank"><?php echo $url->offer_url_type;?></a>
                                 </li>
                                <?php
                                }
