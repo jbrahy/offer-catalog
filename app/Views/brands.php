@@ -78,7 +78,7 @@
                                 {
                                ?>
                                 <li>
-                                  
+
                                   <a href="<?php echo $url->offer_url;?>" target="_blank"><?php echo $url->offer_url_type;?></a>
                                 </li>
                                <?php
@@ -132,8 +132,7 @@
                                 {
                                ?>
                                 <li>
-                                  <?php echo $url->offer_url_type;?>: 
-                                  <a href="<?php echo $url->offer_url;?>" target="_blank"><?php echo $url->offer_url;?></a>
+                                  <a href="<?php echo $url->offer_url;?>" target="_blank"><?php echo $url->offer_url_type;?></a>
                                 </li>
                                <?php
                                }
