@@ -61,7 +61,6 @@ class OfferUrls extends BaseController {
 			$offers_url_list[$offer_url->brand_id][$offer_url->offer_id][] = $offer_url;
 		}
 
-		//echo '<pre>'.print_r($offers_url_list, true).'</pre>'; die();
 
 		return view('brands', [
 			'result_brands'      => $result_brands,
@@ -71,7 +70,6 @@ class OfferUrls extends BaseController {
 			'title'              => "Home",
 			//'permission_option'  => $this->permission_option,
 			'user_name'          => session()->get('first_name'),
-
 		]);
 
 	}
@@ -84,24 +82,20 @@ class OfferUrls extends BaseController {
 
 		if ($brand_id > 0)
 		{
-			$result_offers          = $this->offers_model->where('brand_id', $brand_id)->findAll();
+			$result_offers      = $this->offers_model->where('brand_id', $brand_id)->findAll();
 		}else{
-			$result_offers   = array();
+			$result_offers      = array();
 		}
 
 
 		if ($offer_id > 0)
 		{
-			$offer_detail           = $this->offers_model->get_offer_detail($offer_id);
+			$offer_detail       = $this->offers_model->get_offer_detail($offer_id);
 		}else{
-			$offer_detail    = array();
+			$offer_detail       = array();
 		}
 
-		//echo '<pre>'.print_r($result_brands, true).'</pre>'; die();
-
 		$result_offer_url_types = $this->offer_url_types_model->findAll();
-
-	
 
 		return view('admin/offerurls/new', [
 			'brand_id'                   => $brand_id,
@@ -129,6 +123,7 @@ class OfferUrls extends BaseController {
 		$offer_id          = $this->request->getVar('offer_id');
 		$offer_url         = $this->request->getVar('offer_url');
 		$offer_url_type_id = $this->request->getVar('offer_url_type_id');
+		$offer_url_desc    = $this->request->getVar('offer_url_description');
 		
 		if ($this->request->getMethod() == "post")
 		{
@@ -151,16 +146,14 @@ class OfferUrls extends BaseController {
 			} else
 			{
 				$new_url_data = [
-							'offer_id'          => $offer_id,
-							'offer_url'         => $offer_url,
-							'offer_url_type_id' => $offer_url_type_id,
-							'created_by'        => $user_id,
+							'offer_id'              => $offer_id,
+							'offer_url'             => $offer_url,
+							'offer_url_type_id'     => $offer_url_type_id,
+							'offer_url_description' => $offer_url_desc,
+							'created_by'            => $user_id,
 						  ];
 
-				//echo $this->offer_urls_model->
-				//echo '<pre>'.print_r($new_url_data, true).'</pre>'; die();
-
-				if ($this->offer_urls_model->save($new_url_data))	
+				if ($this->offer_urls_model->save($new_url_data))
 				{
 
 					$ciqrcode = new \App\Libraries\Ciqrcode();
@@ -216,21 +209,18 @@ class OfferUrls extends BaseController {
 	public function edit_url($brand_id, $offer_url_id)
 	{
 		$session = session();
-		//die('on Edit Screen');
 
-		$result_brands          = $this->brands_model->findAll();
+		$result_brands     = $this->brands_model->findAll();
 
-
-		$offer_url_data = $this->offer_urls_model->find($offer_url_id);
-
+		$offer_url_data    = $this->offer_urls_model->find($offer_url_id);
 		$result_offer_data = $this->offers_model->get_offer_detail($offer_url_data->offer_id);
 
 
 		/*
 		if ($offer_id > 0)
 		{
-			$result_offers          = $this->offers_model->where('brand_id', $brand_id)->findAll();
-			$offer_detail           = $this->offers_model->get_offer_detail($offer_id);
+			$result_offers   = $this->offers_model->where('brand_id', $brand_id)->findAll();
+			$offer_detail    = $this->offers_model->get_offer_detail($offer_id);
 		}else{
 			$result_offers   = array();
 			$offer_detail    = array();
@@ -239,8 +229,6 @@ class OfferUrls extends BaseController {
 		
 		$offer_detail    = array();
 
-		
-
 		if (isset($result_offer_data->brand_id))
 		{
 
@@ -248,8 +236,6 @@ class OfferUrls extends BaseController {
 		}else {
 			$result_offers   = array();
 		}
-		//echo '<pre>'.print_r($offer_url_data, true).'</pre>'; die();
-		//echo '<pre>'.print_r($result_offers, true).'</pre>'; die();
 
 		$result_offer_url_types = $this->offer_url_types_model->findAll();
 
@@ -284,6 +270,7 @@ class OfferUrls extends BaseController {
 		$offer_id          = $this->request->getVar('offer_id');
 		$offer_url         = $this->request->getVar('offer_url');
 		$offer_url_type_id = $this->request->getVar('offer_url_type_id');
+		$offer_url_desc    = $this->request->getVar('offer_url_description');
 
 		
 		if ($this->request->getMethod() == "post")
@@ -307,16 +294,14 @@ class OfferUrls extends BaseController {
 			} else
 			{
 				$update_url_data = [
-							'offer_url_id'      => $offer_url_id,
-							'offer_id'          => $offer_id,
-							'offer_url'         => $offer_url,
-							'offer_url_type_id' => $offer_url_type_id,
-							'created_by'        => $user_id,
+							'offer_url_id'          => $offer_url_id,
+							'offer_id'              => $offer_id,
+							'offer_url'             => $offer_url,
+							'offer_url_type_id'     => $offer_url_type_id,
+							'offer_url_description' => $offer_url_desc,
+							'created_by'            => $user_id,
 						  ];
 
-				
-				//echo '<pre>'.print_r($update_url_data, true).'</pre>'; die();
-                
 				if ($this->offer_urls_model->save($update_url_data))	
 				{
 

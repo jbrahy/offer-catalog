@@ -80,6 +80,12 @@
                                 <li>
 
                                   <a href="<?php echo $url->offer_url;?>" target="_blank"><?php echo $url->offer_url_type;?></a>
+                                  <?php
+                                      if ((!empty($url->offer_url_description)) && ($url->offer_url_description !='<p></p>'))
+                                      {
+                                          echo $url->offer_url_description;
+                                      }
+                                  ?>
                                 </li>
                                <?php
                                }
@@ -133,6 +139,12 @@
                                ?>
                                 <li>
                                   <a href="<?php echo $url->offer_url;?>" target="_blank"><?php echo $url->offer_url_type;?></a>
+	                                <?php
+	                                if ((!empty($url->offer_url_description)) && ($url->offer_url_description !='<p></p>'))
+	                                {
+		                                echo $url->offer_url_description;
+	                                }
+	                                ?>
                                 </li>
                                <?php
                                }

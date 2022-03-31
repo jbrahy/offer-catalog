@@ -3,7 +3,7 @@
 <?= $this->section("body") ?>
 
 
-
+    <script src="//cdn.ckeditor.com/4.4.5.1/standard/ckeditor.js"></script>
 
     
 
@@ -144,10 +144,10 @@
                             </select>
                         </div>
 
-
-                      
-
-                        
+                        <div class="form-group">
+                            <label for="offer_url_description">Link Description Area:</label>
+                            <textarea class="ckeditor form-control" id="editor1" name="offer_url_description"  rows="5" required ><?php echo $offer_url_detail->offer_url_description;?></textarea>
+                        </div>
 
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-8 offset-md-2">
